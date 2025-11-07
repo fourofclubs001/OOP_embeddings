@@ -97,7 +97,7 @@ class Environment:
             
         self.objects[result]["class"] = self.objects[receptor]
             
-        self.objects[result]["class_methods"] = self.objects[receptor]["instance_methods"]
+        self.objects[result]["class_methods"] = self.objects[receptor]["instance_methods"].copy()
         self.objects[result]["instance_methods"] = {}
         self.objects[result]["instance_methods"]["class"] = ([],[],result)
 
@@ -115,9 +115,7 @@ class Environment:
 
     def assign_Object_as_super_and_name_when_creating_class(self, receptor, colaborators, result):
         
-        self.send_message(receptor, "class", [], "tmp")
-        
-        if self.objects["tmp"] == self.objects["Class"]:
+        if self.objects[receptor]["class_methods"]["class"][2] == "Class":
 
             self.objects[result]["super"] = self.objects["Object"]
 
@@ -196,3 +194,21 @@ class Environment:
             self.send_message(message_receptor, message_selector, message_colaborators, message_result)
             
         return self.objects[result]
+    
+    # Utils
+    
+    def get_classes(self):
+        
+        classes = []
+        
+        for object_name in list(self.objects.keys()):
+            
+            if "class" in self.objects[object_name]["class_methods"]:
+                
+                if self.objects[object_name]["class_methods"]["class"][2] == "Class":
+                
+                    name_object = self.objects[object_name]["class_methods"]["name"][2]
+                
+                    classes.append(self.get_value(name_object))
+            
+        return set(classes)
