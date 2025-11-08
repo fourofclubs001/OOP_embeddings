@@ -1,3 +1,6 @@
+"
+Observer that interprets bytecode in a fromat using global variables
+"
 Class {
 	#name : 'ObserverStream',
 	#superclass : 'ContextRecordedObserver',

@@ -1,3 +1,6 @@
+"
+Observer interface for ContextRecorderDecorator
+"
 Class {
 	#name : 'ContextRecordedObserver',
 	#superclass : 'Object',
