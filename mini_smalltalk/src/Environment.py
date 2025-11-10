@@ -119,8 +119,6 @@ class Environment:
         
         if self.objects[receptor]["class_methods"]["class"][2] == "Class":
 
-            self.objects[result]["super"] = self.objects["Object"]
-
             self.assign_name_to_object(receptor, colaborators, result)
 
     def send_message(self, receptor, selector, colaborators, result):
