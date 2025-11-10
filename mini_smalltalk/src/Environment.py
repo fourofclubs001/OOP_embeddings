@@ -6,22 +6,17 @@ class MessageNotUnderstood(Exception):
 
 class Environment:
 
-    def __init__(self):
+    # initialization
 
-        self.id_counter = 0
-
-        self.objects = {}
-
-        self.objects["Nil"] = {
-            
-            "class_methods":{
-                "name":([],[],"Nil_name")
-            },
-            "id": self.assign_id()
-        }
-
+    def create_core_objects(self):
+        
+        self.objects["Nil"] = {}
         self.objects["Object"] = {}
         self.objects["Class"] = {}
+        
+    def define_core_objects_class_methods(self):
+        
+        self.objects["Nil"]["class_methods"] = { "name":([],[],"Nil_name") }
 
         self.objects["Class"]["class_methods"] = {
         
@@ -32,15 +27,6 @@ class Environment:
         
         }
         
-        self.objects["Class"]["instance_methods"] = {
-            
-            "class": ([],[],"Class"), 
-            "super":([],[],"Object"),
-            "name":"",
-            "new":""
-            
-        }
-
         self.objects["Object"]["class_methods"] = {
             
             "class":([],[],"Class"),
@@ -49,12 +35,36 @@ class Environment:
             "new":""
             
         }
+
+    def define_core_objects_instance_methods(self):
+        
+        self.objects["Nil"]["instance_methods"] = {}
+        
+        self.objects["Class"]["instance_methods"] = {
+            
+            "class": ([],[],"Class"), 
+            "super":([],[],"Object"),
+            "name":"",
+            "new":""
+            
+        }
         
         self.objects["Object"]["instance_methods"] = {}
+
+    def assign_id(self):
         
+        id = self.id_counter
+        self.id_counter += 1
+        return id
+    
+    def assign_core_objects_id(self):
+        
+        self.objects["Nil"]["id"] = self.assign_id()
         self.objects["Object"]["id"] = self.assign_id()
         self.objects["Class"]["id"] = self.assign_id()
 
+    def register_virtual_machine_implementations(self):
+        
         self.virtual_machine_implementations = {
             
             "new": self.new_method_implementation,
@@ -64,23 +74,46 @@ class Environment:
             
         }
 
+    def define_string_class(self):
+        
         self.send_message("Class", "new", [], "String")
         self.declare_virtual_machine_method("String", "value")
 
-        self.send_message("String", "new", ["Nil"], "Nil_name")
-        self.send_message("String", "new", ["Object"], "Object_name")
-        self.send_message("String", "new", ["Class"], "Class_name")
-
+    def define_dictionary_class(self):
+        
         self.send_message("Class", "new", [], "Dictionary")
         self.declare_virtual_machine_method("Dictionary", "set")
         self.declare_virtual_machine_method("Dictionary", "get")
 
-    def assign_id(self):
+    def define_core_objects_name(self):
         
-        id = self.id_counter
-        self.id_counter += 1
-        return id
-    
+        self.send_message("String", "new", ["Nil"], "Nil_name")
+        self.send_message("String", "new", ["Object"], "Object_name")
+        self.send_message("String", "new", ["Class"], "Class_name")
+
+    def __init__(self):
+
+        self.id_counter = 0
+        self.objects = {}
+
+        self.create_core_objects()
+
+        self.define_core_objects_class_methods()
+        
+        self.define_core_objects_instance_methods()
+        
+        self.assign_core_objects_id()
+
+        self.register_virtual_machine_implementations()
+
+        self.define_string_class()
+
+        self.define_dictionary_class()
+
+        self.define_core_objects_name()
+
+    # implementation
+
     def are_equals(self, object1, object2):
         
         return self.objects[object1]["id"] == self.objects[object2]["id"]
@@ -144,7 +177,7 @@ class Environment:
                                                                      method_implementation,
                                                                      result)
         
-    def initialize_dictionary_for_Dictionary_instance(self, receptor, result):
+    def initialize_virtual_machine_dictionary_for_dictionary_instance(self, receptor, result):
         
         if receptor == "Dictionary": self.objects[result]["dictionary"] = {}
         
@@ -156,7 +189,7 @@ class Environment:
         
         self.fill_new_object_fields_at_objects_dictionary(receptor, result)
         self.assign_Object_as_super_and_name_when_creating_class(receptor, colaborators, result)
-        self.initialize_dictionary_for_Dictionary_instance(receptor, result)
+        self.initialize_virtual_machine_dictionary_for_dictionary_instance(receptor, result)
         
     def value_method_implementation(self, receptor, colaborators, result):
         
