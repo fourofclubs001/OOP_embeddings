@@ -129,7 +129,7 @@ class Environment:
 
         elif selector in self.virtual_machine_implementations.keys():
             
-            self.virtual_machine_implementations[selector](receptor, selector, colaborators, result)
+            self.virtual_machine_implementations[selector](receptor, colaborators, result)
 
         else: self.objects[result] = self.execute_method(receptor, selector, colaborators)
 
@@ -152,22 +152,22 @@ class Environment:
         
         self.define_method(receptor, selector, [], [], None)
 
-    def new_method_implementation(self, receptor, selector, colaborators, result):
+    def new_method_implementation(self, receptor, colaborators, result):
         
         self.fill_new_object_fields_at_objects_dictionary(receptor, result)
         self.assign_Object_as_super_and_name_when_creating_class(receptor, colaborators, result)
         self.initialize_dictionary_for_Dictionary_instance(receptor, result)
         
-    def value_method_implementation(self, receptor, selector, colaborators, result):
+    def value_method_implementation(self, receptor, colaborators, result):
         
         self.objects[result] = self.objects[receptor]["value"]
         
-    def set_method_implementation(self, receptor, selector, colaborators, result):
+    def set_method_implementation(self, receptor, colaborators, result):
         
         self.objects[result] = self.objects[receptor].copy()
         self.objects[result]["dictionary"][colaborators[0]] = self.objects[colaborators[1]]
         
-    def get_method_implementation(self, receptor, selector, colaborators, result):
+    def get_method_implementation(self, receptor, colaborators, result):
         
         self.objects[result] = self.objects[receptor]["dictionary"][colaborators[0]]
       
