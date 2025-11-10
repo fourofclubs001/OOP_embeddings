@@ -35,7 +35,8 @@ class Environment:
         self.objects["Class"]["instance_methods"] = {
             
             "class": ([],[],"Class"), 
-            "super":([],[],"Object"), 
+            "super":([],[],"Object"),
+            "name":"",
             "new":""
             
         }
@@ -64,6 +65,7 @@ class Environment:
         }
 
         self.send_message("Class", "new", [], "String")
+        self.declare_virtual_machine_method("String", "value")
 
         self.send_message("String", "new", ["Nil"], "Nil_name")
         self.send_message("String", "new", ["Object"], "Object_name")
