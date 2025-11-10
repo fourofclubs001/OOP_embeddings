@@ -99,8 +99,6 @@ class Environment:
         self.objects[result] = {}
         self.objects[result]["id"] = self.assign_id()
             
-        self.objects[result]["class"] = self.objects[receptor]
-            
         self.objects[result]["class_methods"] = self.objects[receptor]["instance_methods"].copy()
         self.objects[result]["instance_methods"] = {}
         self.objects[result]["instance_methods"]["class"] = ([],[],result)
