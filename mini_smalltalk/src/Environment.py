@@ -49,6 +49,8 @@ class Environment:
             
         }
         
+        self.objects["Object"]["instance_methods"] = {}
+        
         self.objects["Object"]["id"] = self.assign_id()
         self.objects["Class"]["id"] = self.assign_id()
 
@@ -212,3 +214,17 @@ class Environment:
                     classes.append(self.get_value(name_object))
             
         return set(classes)
+    
+    def get_class_method_pairs(self):
+        
+        class_method_pairs = []
+        
+        classes = self.get_classes()
+        
+        for class_ in classes:
+            
+            for method in self.objects[class_]["instance_methods"]:
+                
+                class_method_pairs.append((class_, method))
+                
+        return class_method_pairs
