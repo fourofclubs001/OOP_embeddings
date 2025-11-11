@@ -20,7 +20,6 @@ class EnvironmentUtilsTest(unittest.TestCase):
         
         class_method_pairs = self.environment.get_class_method_pairs()
 
-        
         expected_pairs = []
             
         expected_pairs.append(("Class", "name"))
@@ -37,3 +36,34 @@ class EnvironmentUtilsTest(unittest.TestCase):
         expected_pairs.append(("String", "value"))
         
         self.assertSetEqual(set(expected_pairs), set(class_method_pairs))
+
+    def test_can_return_trace(self):
+
+        self.environment.define_method(
+            "Dictionary", "create_identity_dictionary", ["key_and_value"],
+            [("Dictionary", "new", [], "dictionary"),
+             ("dictionary", "set", ["key_and_value", "key_and_value"], "dictionary")],
+              "dictionary"
+        )
+        
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        self.environment.send_message("String", "new", ["first_key"], "main_dictionary_first_key")
+
+        trace = self.environment.send_message(
+            
+            "main_dictionary", 
+            "create_identity_dictionary", 
+            ["main_dictionary_first_key"], 
+            "main_dictionary", 
+            trace = True, base_case = True
+        )
+        
+        expected_trace = [
+
+            ("Dictionary", ("Class", "new"), [], "dictionary"),
+            ("dictionary", ("Dictionary", "set"), 
+             ["main_dictionary_first_key", "main_dictionary_first_key"], 
+             "dictionary"),
+        ]
+
+        self.assertListEqual(trace, expected_trace)

@@ -93,6 +93,8 @@ class Environment:
 
     def __init__(self):
 
+        self.trace = []
+
         self.id_counter = 0
         self.objects = {}
 
@@ -154,7 +156,7 @@ class Environment:
 
             self.assign_name_to_object(receptor, colaborators, result)
 
-    def send_message(self, receptor, selector, colaborators, result):
+    def send_message(self, receptor, selector, colaborators, result, trace = False, base_case = False):
 
         if not selector in self.objects[receptor]["class_methods"]: 
             
@@ -164,7 +166,19 @@ class Environment:
             
             self.virtual_machine_implementations[selector](receptor, colaborators, result)
 
-        else: self.objects[result] = self.execute_method(receptor, selector, colaborators)
+        else: self.objects[result] = self.execute_method(receptor, selector, colaborators, trace)
+
+        if trace and not base_case:
+
+            self.trace.append((receptor, (self.objects[receptor]["class_methods"]["class"][2], selector),
+                    colaborators, result))
+            
+        if base_case:
+
+            result_trace = self.trace.copy()
+            self.trace = []
+
+            return result_trace
 
     def get_value(self, object):
 
@@ -204,7 +218,7 @@ class Environment:
         
         self.objects[result] = self.objects[receptor]["dictionary"][colaborators[0]]
       
-    def execute_method(self, receptor, selector, colaborators):
+    def execute_method(self, receptor, selector, colaborators, trace = False):
             
         colaborators_rename, method_implementation, result = self.objects[receptor]["class_methods"][selector]
         
@@ -224,7 +238,7 @@ class Environment:
                 
                 message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
             
-            self.send_message(message_receptor, message_selector, message_colaborators, message_result)
+            self.send_message(message_receptor, message_selector, message_colaborators, message_result, trace)
             
         return self.objects[result]
     
