@@ -240,6 +240,8 @@ class Environment:
             
             self.send_message(message_receptor, message_selector, message_colaborators, message_result, trace)
             
+            method_dictionary[message_result] = message_result
+            
         return self.objects[result]
     
     # Utils

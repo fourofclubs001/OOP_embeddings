@@ -78,5 +78,12 @@ class EnvironmentUtilsTest(unittest.TestCase):
 
         self.assertListEqual(trace, expected_trace)
 
-    def test_can_get_multilevel_trace(self): pass
+    def test_can_get_multilevel_trace(self):
 
+        self.environment.define_method(
+            "Dictionary", "create_identity_dictionary_with_reference", 
+            ["reference_dictionary", "key_and_value_reference"],
+            [("reference_dictionary", "get", ["key_and_value_reference"], "key_and_value"),
+             ("dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary")],
+              "dictionary"
+        )
