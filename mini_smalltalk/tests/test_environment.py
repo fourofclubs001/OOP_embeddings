@@ -62,6 +62,18 @@ class EnvironmentTest(unittest.TestCase):
         self.assertEqual(error.exception.args[0], 
                          f"Message {selector} not understood by {receptor_variable_name} object instance of {receptor_class_name}")
 
+    def test_class_name_does_not_change_when_creating_new_class(self):
+        
+        self.environment.send_message("Class", "new", [], "Lista1")
+        
+        self.environment.send_message("Lista1", "name", [], "result") 
+        self.assertEqual("Lista1", self.environment.get_value("result"))
+        
+        self.environment.send_message("Class", "new", [], "Lista2")
+        
+        self.environment.send_message("Lista1", "name", [], "result") 
+        self.assertEqual("Lista1", self.environment.get_value("result"))
+
     def test_class_superclass_is_Object(self):
 
         self.environment.send_message("Lista", "super", [], "Lista_superclass")
