@@ -212,11 +212,13 @@ class Environment:
     def set_method_implementation(self, receptor, colaborators, result):
         
         self.objects[result] = self.objects[receptor].copy()
-        self.objects[result]["dictionary"][colaborators[0]] = self.objects[colaborators[1]]
+        key = self.objects[colaborators[0]]["value"]
+        self.objects[result]["dictionary"][key] = self.objects[colaborators[1]]
         
     def get_method_implementation(self, receptor, colaborators, result):
         
-        self.objects[result] = self.objects[receptor]["dictionary"][colaborators[0]]
+        key = self.objects[colaborators[0]]["value"]
+        self.objects[result] = self.objects[receptor]["dictionary"][key]
       
     def execute_method(self, receptor, selector, colaborators, trace = False):
             

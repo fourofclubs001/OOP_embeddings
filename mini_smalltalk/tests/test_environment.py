@@ -127,6 +127,44 @@ class EnvironmentTest(unittest.TestCase):
         
         self.assertTrue(self.environment.are_equals("Object_super", "Nil"))
 
+    def test_can_reference_self_on_method_implementation(self): pass
+
+    def test_can_define_method_that_uses_message_result_as_colaborator(self):
+
+        self.environment.define_method(
+            "Dictionary", "create_identity_dictionary", ["key_and_value"],
+            [("Dictionary", "new", [], "dictionary"),
+             ("dictionary", "set", ["key_and_value", "key_and_value"], "dictionary")],
+              "dictionary"
+        )
+
+        self.environment.define_method(
+            "Dictionary", "create_identity_dictionary_with_reference", 
+            ["reference_dictionary", "key_and_value_reference"],
+            [("reference_dictionary", "get", ["key_and_value_reference"], "key_and_value"),
+             ("reference_dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary")],
+              "dictionary"
+        )
+
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        self.environment.send_message("String", "new", ["main_key"], "main_key")
+        self.environment.send_message("Dictionary", "new", [], "reference_dictionary")
+        self.environment.send_message("String", "new", [""], "reference_key")
+
+        self.environment.send_message(
+            "reference_dictionary", "set", 
+            ["reference_key", "main_key"], "reference_dictionary"
+        )
+
+        self.environment.send_message(
+            "main_dictionary", "create_identity_dictionary_with_reference",
+            ["reference_dictionary", "reference_key"], "main_dictionary"
+        )
+
+        self.environment.send_message("main_dictionary", "get", ["main_key"], "result")
+
+        self.assertTrue(self.environment.are_equals("result", "main_key"))
+
     def test_can_define_internal_colaborator(self):
 
         """
