@@ -49,7 +49,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
     def define_dictionary_instance_and_key(self):
 
         self.environment.send_message("Dictionary", "new", [], "main_dictionary")
-        self.environment.send_message("String", "new", ["first_key"], "main_dictionary_first_key")
+        self.environment.send_message("String", "new", ["key"], "main_key")
 
     def send_message_create_identity_dictionary(self, trace, base_case):
 
@@ -57,7 +57,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
             
             "main_dictionary", 
             "create_identity_dictionary", 
-            ["main_dictionary_first_key"], 
+            ["main_key"], 
             "main_dictionary", 
             trace, base_case
         )
@@ -72,7 +72,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
 
             ("Dictionary", ("Class", "new"), [], "dictionary"),
             ("dictionary", ("Dictionary", "set"), 
-             ["main_dictionary_first_key", "main_dictionary_first_key"], 
+             ["main_key", "main_key"], 
              "dictionary"),
         ]
 
@@ -81,9 +81,38 @@ class EnvironmentUtilsTest(unittest.TestCase):
     def test_can_get_multilevel_trace(self):
 
         self.environment.define_method(
+            "Dictionary", "create_identity_dictionary", ["key_and_value"],
+            [("Dictionary", "new", [], "dictionary"),
+             ("dictionary", "set", ["key_and_value", "key_and_value"], "dictionary")],
+              "dictionary"
+        )
+
+        self.environment.define_method(
             "Dictionary", "create_identity_dictionary_with_reference", 
             ["reference_dictionary", "key_and_value_reference"],
             [("reference_dictionary", "get", ["key_and_value_reference"], "key_and_value"),
-             ("dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary")],
+             ("reference_dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary")],
               "dictionary"
         )
+
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        self.environment.send_message("String", "new", ["main_key"], "main_key")
+        self.environment.send_message("Dictionary", "new", [], "reference_dictionary_")
+        self.environment.send_message("String", "new", [""], "reference_key")
+
+        self.environment.send_message(
+            "reference_dictionary_", "set", 
+            ["reference_key", "main_key"], "reference_dictionary_"
+        )
+
+        self.environment.send_message(
+            "main_dictionary", "create_identity_dictionary_with_reference",
+            ["reference_dictionary_", "reference_key"], "main_dictionary",
+            trace=True, base_case=True
+        )
+
+        expected_trace = [
+
+            ("Obj_id", ("Dictionary", "get"), ["Obj_id"], "Obj_id"), ...
+
+        ]
