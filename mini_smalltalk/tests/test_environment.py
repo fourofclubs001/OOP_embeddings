@@ -127,8 +127,6 @@ class EnvironmentTest(unittest.TestCase):
         
         self.assertTrue(self.environment.are_equals("Object_super", "Nil"))
 
-    def test_can_reference_self_on_method_implementation(self): pass
-
     def test_can_define_method_that_uses_message_result_as_colaborator(self):
 
         self.environment.define_method(
@@ -183,6 +181,8 @@ class EnvironmentTest(unittest.TestCase):
         """
         
         pass
+
+    def test_can_reference_self_on_method_implementation(self): pass
 
     def test_can_reference_instance_as_self_inside_method_implementation(self): pass
 
