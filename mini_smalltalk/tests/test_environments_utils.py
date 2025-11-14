@@ -81,9 +81,11 @@ class EnvironmentUtilsTest(unittest.TestCase):
                 ("Dictionary", "set"), 
                 [
                     self.environment.objects["main_key"]["id"], 
-                    self.environment.objects["main_key"]["id"]], 
+                    self.environment.objects["main_key"]["id"]
+                ], 
                 self.environment.objects["dictionary"]["id"]
-            )
+            ),
+            self.environment.objects["dictionary"]["id"]
         ]
 
         self.assertListEqual(trace, expected_trace)
@@ -115,14 +117,37 @@ class EnvironmentUtilsTest(unittest.TestCase):
             ["reference_key", "main_key"], "reference_dictionary_"
         )
 
-        self.environment.send_message(
+        trace = self.environment.send_message(
             "main_dictionary", "create_identity_dictionary_with_reference",
             ["reference_dictionary_", "reference_key"], "main_dictionary",
             trace=True, base_case=True
         )
 
+        # Secuential Execution
         expected_trace = [
 
-            ("Obj_id", ("Dictionary", "get"), ["Obj_id"], "Obj_id"), ...
-
+            (
+                self.environment.objects["reference_dictionary"]["id"], 
+                ("Dictionary", "get"), 
+                [self.environment.objects["reference_key"]["id"]],
+                self.environment.objects["main_key"]["id"]    
+            ),
+            (
+                self.environment.objects["Dictionary"]["id"],
+                ("Class", "new"),
+                [],
+                self.environment.objects["dictionary"]["id"]
+            ),
+            (
+                self.environment.objects["dictionary"]["id"],
+                ("Dictionary", "set"),
+                [
+                    self.environment.objects["main_key"]["id"],
+                    self.environment.objects["main_key"]["id"]
+                ],
+                self.environment.objects["dictionary"]["id"]
+            ),
+            self.environment.objects["dictionary"]["id"]
         ]
+        
+        self.assertListEqual(trace, expected_trace)

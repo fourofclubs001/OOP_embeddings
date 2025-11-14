@@ -163,6 +163,27 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertTrue(self.environment.are_equals("result", "main_key"))
 
+    def test_can_define_method_that_uses_colaborator_as_internal_message_receptor(self):
+        
+        self.environment.define_method("Dictionary", "second_set",
+                                       ["dictionary", "key", "value"],
+                                       [("dictionary", "set", ["key", "value"], "dictionary")],
+                                       "dictionary")
+        
+        self.environment.send_message("String", "new", ["key"], "main_key")
+        self.environment.send_message("String", "new", ["value"], "main_value")
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        
+        self.environment.send_message("main_dictionary", "second_set", 
+                                      ["main_dictionary", "main_key", "main_value"],
+                                      "main_dictionary")
+        
+        self.environment.send_message("main_dictionary", "get", ["main_key"], "result")
+        
+        self.environment.are_equals("result", "main_value")
+    
+    def test_can_define_method_that_uses_colaborator_as_internal_message_result(self): pass
+
     def test_can_define_internal_colaborator(self):
 
         """

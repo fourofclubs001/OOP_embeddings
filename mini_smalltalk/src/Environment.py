@@ -179,6 +179,7 @@ class Environment:
         if base_case:
 
             result_trace = self.trace.copy()
+            result_trace.append(self.objects[result]["id"])
             self.trace = []
 
             return result_trace
