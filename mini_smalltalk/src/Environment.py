@@ -170,8 +170,11 @@ class Environment:
 
         if trace and not base_case:
 
-            self.trace.append((receptor, (self.objects[receptor]["class_methods"]["class"][2], selector),
-                    colaborators, result))
+            self.trace.append((
+                self.objects[receptor]["id"], 
+                (self.objects[receptor]["class_methods"]["class"][2], selector),
+                [self.objects[colaborator]["id"] for colaborator in colaborators], 
+                self.objects[result]["id"]))
             
         if base_case:
 

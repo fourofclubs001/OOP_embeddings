@@ -70,10 +70,20 @@ class EnvironmentUtilsTest(unittest.TestCase):
         
         expected_trace = [
 
-            ("Dictionary", ("Class", "new"), [], "dictionary"),
-            ("dictionary", ("Dictionary", "set"), 
-             ["main_key", "main_key"], 
-             "dictionary"),
+            (
+                self.environment.objects["Dictionary"]["id"], 
+                ("Class", "new"), 
+                [], 
+                self.environment.objects["dictionary"]["id"]
+            ),
+            (
+                self.environment.objects["dictionary"]["id"], 
+                ("Dictionary", "set"), 
+                [
+                    self.environment.objects["main_key"]["id"], 
+                    self.environment.objects["main_key"]["id"]], 
+                self.environment.objects["dictionary"]["id"]
+            )
         ]
 
         self.assertListEqual(trace, expected_trace)
