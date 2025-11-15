@@ -77,17 +77,16 @@ class EnvironmentUtilsTest(unittest.TestCase):
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary", ["key_and_value"],
-            [("Dictionary", "new", [], "dictionary"),
-             ("dictionary", "set", ["key_and_value", "key_and_value"], "dictionary")],
-              "dictionary"
+            [("self", "set", ["key_and_value", "key_and_value"], "self")],
+              "self"
         )
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary_with_reference", 
             ["reference_dictionary", "key_and_value_reference"],
             [("reference_dictionary", "get", ["key_and_value_reference"], "key_and_value"),
-             ("reference_dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary")],
-              "dictionary"
+             ("self", "create_identity_dictionary", ["key_and_value"], "self")],
+              "self"
         )
 
         self.environment.send_message("Dictionary", "new", [], "main_dictionary")
@@ -103,7 +102,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
         trace = self.environment.send_message(
             "main_dictionary", "create_identity_dictionary_with_reference",
             ["reference_dictionary_", "reference_key"], "main_dictionary",
-            trace=True, base_case=True
+            trace = True, base_case = True
         )
 
         # Secuential Execution
@@ -116,21 +115,15 @@ class EnvironmentUtilsTest(unittest.TestCase):
                 self.environment.objects["main_key"]["id"]    
             ),
             (
-                self.environment.objects["Dictionary"]["id"],
-                ("Class", "new"),
-                [],
-                self.environment.objects["dictionary"]["id"]
-            ),
-            (
-                self.environment.objects["dictionary"]["id"],
+                self.environment.objects["main_dictionary"]["id"],
                 ("Dictionary", "set"),
                 [
                     self.environment.objects["main_key"]["id"],
                     self.environment.objects["main_key"]["id"]
                 ],
-                self.environment.objects["dictionary"]["id"]
+                self.environment.objects["main_dictionary"]["id"]
             ),
-            self.environment.objects["dictionary"]["id"]
+            self.environment.objects["main_dictionary"]["id"]
         ]
         
         self.assertListEqual(trace, expected_trace)

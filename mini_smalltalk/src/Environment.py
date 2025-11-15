@@ -156,7 +156,8 @@ class Environment:
 
             self.assign_name_to_object(receptor, colaborators, result)
 
-    def send_message(self, receptor, selector, colaborators, result, trace = False, base_case = False):
+    def send_message(self, receptor, selector, colaborators, result, 
+                     trace = False, base_case = False):
 
         if not selector in self.objects[receptor]["class_methods"]: 
             
@@ -168,7 +169,7 @@ class Environment:
 
         else: self.objects[result] = self.execute_method(receptor, selector, colaborators, trace)
 
-        if trace and not base_case:
+        if trace and selector in self.virtual_machine_implementations:
 
             self.trace.append((
                 self.objects[receptor]["id"], 
@@ -176,7 +177,7 @@ class Environment:
                 [self.objects[colaborator]["id"] for colaborator in colaborators], 
                 self.objects[result]["id"]))
             
-        if base_case:
+        if trace and base_case:
 
             result_trace = self.trace.copy()
             result_trace.append(self.objects[result]["id"])
