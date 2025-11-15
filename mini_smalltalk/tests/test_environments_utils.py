@@ -41,9 +41,8 @@ class EnvironmentUtilsTest(unittest.TestCase):
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary", ["key_and_value"],
-            [("Dictionary", "new", [], "dictionary"),
-             ("dictionary", "set", ["key_and_value", "key_and_value"], "dictionary")],
-              "dictionary"
+            [("self", "set", ["key_and_value", "key_and_value"], "self")],
+              "self"
         )
 
         self.environment.send_message("Dictionary", "new", [], "main_dictionary")
@@ -61,21 +60,15 @@ class EnvironmentUtilsTest(unittest.TestCase):
         expected_trace = [
 
             (
-                self.environment.objects["Dictionary"]["id"], 
-                ("Class", "new"), 
-                [], 
-                self.environment.objects["dictionary"]["id"]
-            ),
-            (
-                self.environment.objects["dictionary"]["id"], 
+                self.environment.objects["main_dictionary"]["id"], 
                 ("Dictionary", "set"), 
                 [
                     self.environment.objects["main_key"]["id"], 
                     self.environment.objects["main_key"]["id"]
                 ], 
-                self.environment.objects["dictionary"]["id"]
+                self.environment.objects["main_dictionary"]["id"]
             ),
-            self.environment.objects["dictionary"]["id"]
+            self.environment.objects["main_dictionary"]["id"]
         ]
 
         self.assertListEqual(trace, expected_trace)
