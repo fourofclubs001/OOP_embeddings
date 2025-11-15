@@ -90,6 +90,12 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertEqual(error.exception.args[0], "Message super not understood by lista object instance of Lista")
 
+    def test_object_has_no_superclass(self):
+
+        self.environment.send_message("Object", "super", [], "Object_super")
+        
+        self.assertTrue(self.environment.are_equals("Object_super", "Nil"))
+
     def test_can_define_method_for_class_instances(self):
         
         self.environment.define_method("Lista", "get_another_Lista", [],
@@ -121,11 +127,26 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertTrue(self.environment.are_equals("result_value", "main_dictionary_first_key"))
 
-    def test_object_has_no_superclass(self):
-
-        self.environment.send_message("Object", "super", [], "Object_super")
+    def test_can_define_method_with_self(self):
         
-        self.assertTrue(self.environment.are_equals("Object_super", "Nil"))
+        self.environment.define_method("Dictionary", "second_set",
+                                       ["key", "value"],
+                                       [("self", "set", ["key", "value"], "self")],
+                                       "self")
+        
+        self.environment.send_message("String", "new", ["key"], "main_key")
+        self.environment.send_message("String", "new", ["value"], "main_value")
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        
+        self.environment.send_message("main_dictionary", "second_set", 
+                                      ["main_key", "main_value"],
+                                      "main_dictionary")
+        
+        self.environment.send_message("main_dictionary", "get", ["main_key"], "result")
+        
+        self.environment.are_equals("result", "main_value")
+    
+    def test_can_define_method_that_uses_message_result_as_receptor(self): pass
 
     def test_can_define_method_that_uses_message_result_as_colaborator(self):
 
@@ -163,50 +184,12 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertTrue(self.environment.are_equals("result", "main_key"))
 
-    def test_can_define_method_with_self(self):
-        
-        self.environment.define_method("Dictionary", "second_set",
-                                       ["key", "value"],
-                                       [("self", "set", ["key", "value"], "self")],
-                                       "self")
-        
-        self.environment.send_message("String", "new", ["key"], "main_key")
-        self.environment.send_message("String", "new", ["value"], "main_value")
-        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
-        
-        self.environment.send_message("main_dictionary", "second_set", 
-                                      ["main_key", "main_value"],
-                                      "main_dictionary")
-        
-        self.environment.send_message("main_dictionary", "get", ["main_key"], "result")
-        
-        self.environment.are_equals("result", "main_value")
-    
+    def test_can_define_method_that_uses_message_result_as_result(self): pass
+
     def test_can_define_method_that_uses_colaborator_as_internal_message_receptor(self): pass
 
     def test_can_define_method_that_uses_colaborator_as_internal_message_result(self): pass
 
-    def test_can_define_internal_colaborator(self):
-
-        """
-        
-        self.environment.send_message("Class", "new", [], "Tupla")
-        
-        self.environment.define_internal_colab("Tupla", "primero")
-        self.environment.define_internal_colab("Tupla", "segundo")
-        
-        self.environment.send_message("String", "new", ["string_primero"], "string_primero")
-        self.environment.send_message("String", "new", ["string_segundo"], "string_segundo")
-        
-        self.environment.define_method("Tupla", "set_primero", ["string_primero"], 
-                                       [("primero", "", [], "string_primero")], "Tupla")
-                                       
-        """
-        
-        pass
-
-    def test_can_reference_self_on_method_implementation(self): pass
-
-    def test_can_reference_instance_as_self_inside_method_implementation(self): pass
+    def test_can_define_internal_colaborator(self): pass
 
     def test_implement_class_hierarchies(self): pass
