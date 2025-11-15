@@ -224,27 +224,44 @@ class Environment:
         key = self.objects[colaborators[0]]["value"]
         self.objects[result] = self.objects[receptor]["dictionary"][key]
       
-    def execute_method(self, receptor, selector, colaborators, trace = False):
-            
-        colaborators_rename, method_implementation, result = self.objects[receptor]["class_methods"][selector]
-        
+    def create_method_dictionary(self, receptor, colaborators, colaborators_rename):
+
         method_dictionary = {"self": receptor}
 
         for idx in range(len(colaborators)):
             
             method_dictionary[colaborators_rename[idx]] = colaborators[idx]
+
+        method_dictionary["Lista"] = "Lista"
+        method_dictionary["Dictionary"] = "Dictionary"
+
+        return method_dictionary
+
+    def message_rename(self, method_dictionary, message_receptor_rename, message_colaborators_rename):
+
+        message_colaborators = []
+            
+        for idx in range(len(message_colaborators_rename)):
+            
+            message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
+
+        message_receptor = method_dictionary[message_receptor_rename]
+        
+        return message_receptor, message_colaborators
+
+    def execute_method(self, receptor, selector, colaborators, trace = False):
+            
+        colaborators_rename, method_implementation, result = self.objects[receptor]["class_methods"][selector]
+        
+        method_dictionary = self.create_method_dictionary(receptor, colaborators, colaborators_rename)
         
         for message in method_implementation:
             
             message_receptor_rename, message_selector, message_colaborators_rename, message_result = message
             
-            message_colaborators = []
-            
-            for idx in range(len(message_colaborators_rename)):
-                
-                message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
-
-            message_receptor = method_dictionary[message_receptor_rename]
+            message_receptor, message_colaborators = self.message_rename(method_dictionary, 
+                                                                         message_receptor_rename,
+                                                                         message_colaborators_rename)
             
             self.send_message(message_receptor, message_selector, message_colaborators, message_result, trace)
             
