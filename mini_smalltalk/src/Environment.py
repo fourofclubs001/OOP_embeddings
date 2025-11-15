@@ -224,13 +224,7 @@ class Environment:
         key = self.objects[colaborators[0]]["value"]
         self.objects[result] = self.objects[receptor]["dictionary"][key]
       
-    def create_method_dictionary(self, receptor, colaborators, colaborators_rename):
-
-        method_dictionary = {"self": receptor}
-
-        for idx in range(len(colaborators)):
-            
-            method_dictionary[colaborators_rename[idx]] = colaborators[idx]
+    def add_classes_to_method_dictionary(self, method_dictionary):
 
         for object in list(self.objects.keys()):
 
@@ -239,6 +233,18 @@ class Environment:
                 if self.objects[object]["class_methods"]["class"][2] == "Class":
 
                     method_dictionary[object] = object
+
+        return method_dictionary
+
+    def create_method_dictionary(self, receptor, colaborators, colaborators_rename):
+
+        method_dictionary = {"self": receptor}
+
+        for idx in range(len(colaborators)):
+            
+            method_dictionary[colaborators_rename[idx]] = colaborators[idx]
+
+        method_dictionary = self.add_classes_to_method_dictionary(method_dictionary)
 
         return method_dictionary
 
