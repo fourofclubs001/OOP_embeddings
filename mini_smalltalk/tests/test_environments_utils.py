@@ -37,7 +37,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
         
         self.assertSetEqual(set(expected_pairs), set(class_method_pairs))
 
-    def define_create_identity_dictionary(self):
+    def test_can_get_trace(self):
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary", ["key_and_value"],
@@ -46,27 +46,17 @@ class EnvironmentUtilsTest(unittest.TestCase):
               "dictionary"
         )
 
-    def define_dictionary_instance_and_key(self):
-
         self.environment.send_message("Dictionary", "new", [], "main_dictionary")
         self.environment.send_message("String", "new", ["key"], "main_key")
 
-    def send_message_create_identity_dictionary(self, trace, base_case):
-
-        return self.environment.send_message(
+        trace = self.environment.send_message(
             
             "main_dictionary", 
             "create_identity_dictionary", 
             ["main_key"], 
             "main_dictionary", 
-            trace, base_case
+            trace = True, base_case = True
         )
-
-    def test_can_get_trace(self):
-
-        self.define_create_identity_dictionary()
-        self.define_dictionary_instance_and_key()
-        trace = self.send_message_create_identity_dictionary(trace=True, base_case=True)
         
         expected_trace = [
 
@@ -127,7 +117,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
         expected_trace = [
 
             (
-                self.environment.objects["reference_dictionary"]["id"], 
+                self.environment.objects["reference_dictionary_"]["id"], 
                 ("Dictionary", "get"), 
                 [self.environment.objects["reference_key"]["id"]],
                 self.environment.objects["main_key"]["id"]    
