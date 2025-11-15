@@ -146,9 +146,41 @@ class EnvironmentTest(unittest.TestCase):
         
         self.environment.are_equals("result", "main_value")
     
-    def test_can_define_method_that_uses_message_result_as_receptor(self): pass
+    def test_can_define_method_that_uses_receptor_as_internal_message_colaborator(self):
 
-    def test_can_define_method_that_uses_message_result_as_colaborator(self):
+        self.environment.define_method(
+            "Dictionary", "set_as_sub_dictionary_of", 
+            ["another_dictionary", "dictionary_key"],
+            [("another_dictionary", "set", ["dictionary_key", "self"], "another_dictionary")],
+            "another_dictionary"
+        )
+
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        self.environment.send_message("Dictionary", "new", [], "secondary_dictionary")
+        self.environment.send_message("String", "new", [""], "main_key")
+
+        self.environment.send_message(
+            "main_dictionary", "set_as_sub_dictionary_of",
+            ["secondary_dictionary", "main_key"], "result_dictionary"
+        )
+
+        self.environment.send_message("result_dictionary", "get", ["main_key"], 
+                                      "result_sub_dictionary")
+
+        self.assertTrue(self.environment.are_equals("result_dictionary", "secondary_dictionary"))
+        self.assertTrue(self.environment.are_equals("result_sub_dictionary", "main_dictionary"))
+
+    def test_can_define_method_that_uses_receptor_as_internal_message_result(self): pass
+
+    def test_can_define_method_that_uses_colaborator_as_internal_message_receptor(self): pass
+
+    def test_can_define_method_that_uses_colaborator_as_internal_message_colaborator(self): pass
+
+    def test_can_define_method_that_uses_colaborator_as_internal_message_result(self): pass
+
+    def test_can_define_method_that_uses_internal_message_result_as_receptor(self): pass
+
+    def test_can_define_method_that_uses_internal_message_result_as_colaborator(self):
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary", ["key_and_value"],
@@ -184,11 +216,7 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertTrue(self.environment.are_equals("result", "main_key"))
 
-    def test_can_define_method_that_uses_message_result_as_result(self): pass
-
-    def test_can_define_method_that_uses_colaborator_as_internal_message_receptor(self): pass
-
-    def test_can_define_method_that_uses_colaborator_as_internal_message_result(self): pass
+    def test_can_define_method_that_uses_internal_message_result_as_result(self): pass
 
     def test_can_define_internal_colaborator(self): pass
 
