@@ -232,8 +232,13 @@ class Environment:
             
             method_dictionary[colaborators_rename[idx]] = colaborators[idx]
 
-        method_dictionary["Lista"] = "Lista"
-        method_dictionary["Dictionary"] = "Dictionary"
+        for object in list(self.objects.keys()):
+
+            if "class" in self.objects[object]["class_methods"]:
+
+                if self.objects[object]["class_methods"]["class"][2] == "Class":
+
+                    method_dictionary[object] = object
 
         return method_dictionary
 
