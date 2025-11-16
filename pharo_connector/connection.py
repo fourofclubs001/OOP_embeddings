@@ -23,6 +23,21 @@ instructionsToPerform = [
         "arguments": [1]
     }
 ]
+
+embeddingDictionary = {}
+
+def getEmbeddingFor(variableName):
+    embedding = 0
+    if variableName in embeddingDictionary.keys():
+        embedding = embeddingDictionary[variableName]
+    else: 
+        # Poner función de embedding
+        pass
+
+def applyApplicationFor(receiverName, selector, argumentNames):
+    
+    pass
+
 responses = []
 
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -37,5 +52,14 @@ for instruction in instructionsToPerform:
     response = json.dumps(client.recv(5000).decode('utf-8'))
     responses.append(response)
     print(response)
+
+responseObjects = json.loads(response)
+
+for responseObject in responseObjects:
+    if responseObject['type'] == "assignment":
+        embeddingDictionary[responseObject['to']] = getEmbeddingFor(responseObject['from'])
+    elif responseObject['type'] == "send":
+        embeddingDictionary[responseObject['receiver']] = applyApplicationFor(responseObject['receiver'], responseObject['selector'], responseObject['arguments'])
+
 client.shutdown(socket.SHUT_RDWR)
 client.close()
