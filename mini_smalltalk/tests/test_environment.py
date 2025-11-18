@@ -202,17 +202,17 @@ class EnvironmentTest(unittest.TestCase):
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary", ["key_and_value"],
-            [("Dictionary", "new", [], "dictionary"),
-             ("dictionary", "set", ["key_and_value", "key_and_value"], "dictionary")],
-              "dictionary"
+            [("Dictionary", "new", [], "dictionary_0"),
+             ("dictionary_0", "set", ["key_and_value", "key_and_value"], "dictionary_0")],
+              "dictionary_0"
         )
 
         self.environment.define_method(
             "Dictionary", "create_identity_dictionary_with_reference", 
             ["reference_dictionary", "key_and_value_reference"],
             [("reference_dictionary", "get", ["key_and_value_reference"], "key_and_value"),
-             ("reference_dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary")],
-              "dictionary"
+             ("reference_dictionary", "create_identity_dictionary", ["key_and_value"], "dictionary_1")],
+              "dictionary_1"
         )
 
         self.environment.send_message("Dictionary", "new", [], "main_dictionary")

@@ -229,12 +229,14 @@ class Environment:
 
         for object in list(self.objects.keys()):
 
-            if "class" in self.objects[object]["class_methods"]:
+            if "class_methods" in self.objects[object]:
 
-                if self.objects[object]["class_methods"]["class"][2] == "Class":
+                if "class" in self.objects[object]["class_methods"]:
 
-                    method_dictionary[object] = object
-                    method_dictionary[f"{object}_name"] = f"{object}_name"
+                    if self.objects[object]["class_methods"]["class"][2] == "Class":
+
+                        method_dictionary[object] = object
+                        method_dictionary[f"{object}_name"] = f"{object}_name"
 
         method_dictionary["Nil"] = "Nil"
         method_dictionary["Nil_name"] = "Nil_name"
@@ -278,7 +280,7 @@ class Environment:
             
             message_receptor_rename, message_selector, message_colaborators_rename, message_result_rename = message
             
-            if message_result_rename not in self.objects and message_result_rename != "self": 
+            if message_result_rename not in self.objects and message_result_rename != "self":
                 self.objects[message_result_rename] = {}
                 if message_result_rename not in method_dictionary:
                     method_dictionary[message_result_rename] = message_result_rename
