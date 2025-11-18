@@ -241,15 +241,13 @@ class Environment:
 
         return method_dictionary
 
-    def create_method_dictionary(self, receptor, colaborators, colaborators_rename, result, result_rename):
+    def create_method_dictionary(self, receptor, colaborators, colaborators_rename):
 
         method_dictionary = {"self": receptor}
 
         for idx in range(len(colaborators)):
             
             method_dictionary[colaborators_rename[idx]] = colaborators[idx]
-
-        method_dictionary[result_rename] = result
 
         method_dictionary = self.add_classes_to_method_dictionary(method_dictionary)
 
@@ -276,8 +274,7 @@ class Environment:
         colaborators_rename, method_implementation, result_rename = self.objects[receptor]["class_methods"][selector]
         
         method_dictionary = self.create_method_dictionary(receptor, 
-                                                          colaborators, colaborators_rename, 
-                                                          result, result_rename)
+                                                          colaborators, colaborators_rename)
 
         for message in method_implementation:
             
