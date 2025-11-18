@@ -255,8 +255,7 @@ class Environment:
 
     def message_rename(self, method_dictionary, 
                        message_receptor_rename, 
-                       message_colaborators_rename,
-                       message_result_rename):
+                       message_colaborators_rename):
 
         message_colaborators = []
             
@@ -265,9 +264,8 @@ class Environment:
             message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
 
         message_receptor = method_dictionary[message_receptor_rename]
-        message_result = method_dictionary[message_result_rename]
         
-        return message_receptor, message_colaborators, message_result
+        return message_receptor, message_colaborators
 
     def execute_method(self, receptor, selector, colaborators, result, trace = False):
             
@@ -280,15 +278,15 @@ class Environment:
             
             message_receptor_rename, message_selector, message_colaborators_rename, message_result_rename = message
             
-            message_receptor, message_colaborators, message_result = self.message_rename(
-                                                                         method_dictionary, 
+            self.objects[message_result_rename] = {}
+
+            message_receptor, message_colaborators = self.message_rename(method_dictionary, 
                                                                          message_receptor_rename,
-                                                                         message_colaborators_rename,
-                                                                         message_result_rename)
+                                                                         message_colaborators_rename)
             
-            self.send_message(message_receptor, message_selector, message_colaborators, message_result, trace)
+            self.send_message(message_receptor, message_selector, message_colaborators, message_result_rename, trace)
             
-            method_dictionary[message_result] = message_result
+            method_dictionary[message_result_rename] = message_result_rename
 
         self.objects[result] = self.objects[method_dictionary[result_rename]]
     
