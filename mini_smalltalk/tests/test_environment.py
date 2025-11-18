@@ -170,13 +170,31 @@ class EnvironmentTest(unittest.TestCase):
         self.assertTrue(self.environment.are_equals("result_dictionary", "secondary_dictionary"))
         self.assertTrue(self.environment.are_equals("result_sub_dictionary", "main_dictionary"))
 
-    def test_can_define_method_that_uses_receptor_as_internal_message_result(self): pass
+    def test_can_define_method_that_uses_colaborator_as_internal_message_result(self):
 
-    def test_can_define_method_that_uses_colaborator_as_internal_message_receptor(self): pass
+        self.environment.send_message("String", "new", ["key_value"], "key_value")
 
-    def test_can_define_method_that_uses_colaborator_as_internal_message_colaborator(self): pass
+        self.environment.define_method(
+            "Dictionary", "fill_colaborator_dictionary",
+            ["result_dictionary", "key_value"],
+            [("self", "set", ["key_value", "key_value"], "result_dictionary")],
+            "result_dictionary"
+        )
 
-    def test_can_define_method_that_uses_colaborator_as_internal_message_result(self): pass
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+        self.environment.send_message("Dictionary", "new", [], "secondary_dictionary")
+
+        self.environment.send_message(
+            "main_dictionary", "fill_colaborator_dictionary",
+            ["secondary_dictionary", "key_value"], "result"
+        )
+
+        self.environment.send_message(
+            "secondary_dictionary", "get",
+            ["key_value"], "result_value"
+        )
+
+        self.assertTrue(self.environment.are_equals("result_value", "key_value"))
 
     def test_can_define_method_that_uses_internal_message_result_as_receptor(self): pass
 
