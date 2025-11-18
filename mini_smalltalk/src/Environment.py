@@ -20,9 +20,9 @@ class Environment:
 
         self.objects["Class"]["class_methods"] = {
         
-            "class": ([],[],"Class"), 
+            "class": ([],[], "Class"),
             "super": ([],[], "Object"),
-            "name": ([],[],"Class_name"), 
+            "name": ([],[], "Class_name"),
             "new": ""
         
         }
@@ -93,6 +93,8 @@ class Environment:
 
     def __init__(self):
 
+        self.trace = []
+
         self.id_counter = 0
         self.objects = {}
 
@@ -154,7 +156,8 @@ class Environment:
 
             self.assign_name_to_object(receptor, colaborators, result)
 
-    def send_message(self, receptor, selector, colaborators, result):
+    def send_message(self, receptor, selector, colaborators, result, 
+                     trace = False, base_case = False):
 
         if not selector in self.objects[receptor]["class_methods"]: 
             
@@ -164,7 +167,23 @@ class Environment:
             
             self.virtual_machine_implementations[selector](receptor, colaborators, result)
 
-        else: self.objects[result] = self.execute_method(receptor, selector, colaborators)
+        else: self.execute_method(receptor, selector, colaborators, result, trace)
+
+        if trace and selector in self.virtual_machine_implementations:
+
+            self.trace.append((
+                self.objects[receptor]["id"], 
+                (self.objects[receptor]["class_methods"]["class"][2], selector),
+                [self.objects[colaborator]["id"] for colaborator in colaborators], 
+                self.objects[result]["id"]))
+            
+        if trace and base_case:
+
+            result_trace = self.trace.copy()
+            result_trace.append(self.objects[result]["id"])
+            self.trace = []
+
+            return result_trace
 
     def get_value(self, object):
 
@@ -198,35 +217,86 @@ class Environment:
     def set_method_implementation(self, receptor, colaborators, result):
         
         self.objects[result] = self.objects[receptor].copy()
-        self.objects[result]["dictionary"][colaborators[0]] = self.objects[colaborators[1]]
+        key = self.objects[colaborators[0]]["value"]
+        self.objects[result]["dictionary"][key] = self.objects[colaborators[1]]
         
     def get_method_implementation(self, receptor, colaborators, result):
         
-        self.objects[result] = self.objects[receptor]["dictionary"][colaborators[0]]
+        key = self.objects[colaborators[0]]["value"]
+        self.objects[result] = self.objects[receptor]["dictionary"][key]
       
-    def execute_method(self, receptor, selector, colaborators):
-            
-        colaborators_rename, method_implementation, result = self.objects[receptor]["class_methods"][selector]
-        
-        method_dictionary = {}
-        
+    def add_classes_to_method_dictionary(self, method_dictionary):
+
+        for object in list(self.objects.keys()):
+
+            if "class_methods" in self.objects[object]:
+
+                if "class" in self.objects[object]["class_methods"]:
+
+                    if self.objects[object]["class_methods"]["class"][2] == "Class":
+
+                        method_dictionary[object] = object
+                        method_dictionary[f"{object}_name"] = f"{object}_name"
+
+        method_dictionary["Nil"] = "Nil"
+        method_dictionary["Nil_name"] = "Nil_name"
+
+        return method_dictionary
+
+    def create_method_dictionary(self, receptor, colaborators, colaborators_rename):
+
+        method_dictionary = {"self": receptor}
+
         for idx in range(len(colaborators)):
             
             method_dictionary[colaborators_rename[idx]] = colaborators[idx]
+
+        method_dictionary = self.add_classes_to_method_dictionary(method_dictionary)
+
+        return method_dictionary
+
+    def message_rename(self, method_dictionary, 
+                       message_receptor_rename, 
+                       message_colaborators_rename):
+
+        message_colaborators = []
+            
+        for idx in range(len(message_colaborators_rename)):
+            
+            message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
+
+        message_receptor = method_dictionary[message_receptor_rename]
         
+        return message_receptor, message_colaborators
+
+    def execute_method(self, receptor, selector, colaborators, result, trace = False):
+            
+        colaborators_rename, method_implementation, result_rename = self.objects[receptor]["class_methods"][selector]
+        
+        method_dictionary = self.create_method_dictionary(receptor, 
+                                                          colaborators, colaborators_rename)
+
         for message in method_implementation:
             
-            message_receptor, message_selector, message_colaborators_rename, message_result = message
+            message_receptor_rename, message_selector, message_colaborators_rename, message_result_rename = message
             
-            message_colaborators = []
+            if message_result_rename not in self.objects and message_result_rename != "self":
+                self.objects[message_result_rename] = {}
+                if message_result_rename not in method_dictionary:
+                    method_dictionary[message_result_rename] = message_result_rename
+
+            message_receptor, message_colaborators = self.message_rename(method_dictionary, 
+                                                                         message_receptor_rename,
+                                                                         message_colaborators_rename)
             
-            for idx in range(len(message_colaborators_rename)):
-                
-                message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
+            message_result = method_dictionary[message_result_rename]
+
+            self.send_message(message_receptor, message_selector, message_colaborators, message_result, trace)
             
-            self.send_message(message_receptor, message_selector, message_colaborators, message_result)
-            
-        return self.objects[result]
+            if message_result_rename != "self" and message_result_rename not in method_dictionary:
+                method_dictionary[message_result_rename] = message_result_rename
+
+        self.objects[result] = self.objects[method_dictionary[result_rename]]
     
     # Utils
     
