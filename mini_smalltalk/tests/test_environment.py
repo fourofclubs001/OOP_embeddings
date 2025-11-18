@@ -196,7 +196,34 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertTrue(self.environment.are_equals("result_value", "key_value"))
 
-    def test_can_define_method_that_uses_internal_message_result_as_receptor(self): pass
+    def test_can_define_method_that_uses_internal_message_result_as_receptor(self):
+
+        self.environment.define_method(
+            "Dictionary", "get_by_reference",
+            ["main_key", "reference_key"],
+            [("self", "get", ["main_key"], "result_dictionary"),
+             ("result_dictionary", "get", ["reference_key"], "result_value")],
+             "result_value")
+
+        self.environment.send_message("String", "new", ["main_key"], "main_key")
+        self.environment.send_message("Dictionary", "new", [], "main_dictionary")
+
+        self.environment.send_message("String", "new", ["reference_value"], "reference_value")
+        self.environment.send_message("String", "new", ["reference_key"], "reference_key")
+        self.environment.send_message("Dictionary", "new", [], "reference_dictionary")
+
+        self.environment.send_message("reference_dictionary", "set",
+                                      ["reference_key", "reference_value"],
+                                      "reference_dictionary")
+
+        self.environment.send_message("main_dictionary", "set", 
+                                      ["main_key", "reference_dictionary"], 
+                                      "main_dictionary")
+        
+        self.environment.send_message("main_dictionary", "get_by_reference",
+                                      ["main_key", "reference_key"], "result")
+
+        self.assertTrue(self.environment.are_equals("result", "reference_value"))
 
     def test_can_define_method_that_uses_internal_message_result_as_colaborator(self):
 
