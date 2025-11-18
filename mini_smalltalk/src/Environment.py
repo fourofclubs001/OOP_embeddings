@@ -278,13 +278,17 @@ class Environment:
             
             message_receptor_rename, message_selector, message_colaborators_rename, message_result_rename = message
             
-            if message_result_rename not in self.objects: self.objects[message_result_rename] = {}
+            if message_result_rename not in self.objects: 
+                self.objects[message_result_rename] = {}
+                method_dictionary[message_result_rename] = message_result_rename
 
             message_receptor, message_colaborators = self.message_rename(method_dictionary, 
                                                                          message_receptor_rename,
                                                                          message_colaborators_rename)
             
-            self.send_message(message_receptor, message_selector, message_colaborators, message_result_rename, trace)
+            message_result = method_dictionary[message_result_rename]
+
+            self.send_message(message_receptor, message_selector, message_colaborators, message_result, trace)
             
             method_dictionary[message_result_rename] = message_result_rename
 
