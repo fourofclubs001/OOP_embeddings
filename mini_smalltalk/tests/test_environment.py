@@ -203,7 +203,8 @@ class EnvironmentTest(unittest.TestCase):
             ["main_key", "reference_key"],
             [("self", "get", ["main_key"], "result_dictionary"),
              ("result_dictionary", "get", ["reference_key"], "result_value")],
-             "result_value")
+             "result_value"
+        )
 
         self.environment.send_message("String", "new", ["main_key"], "main_key")
         self.environment.send_message("Dictionary", "new", [], "main_dictionary")
@@ -287,7 +288,5 @@ class EnvironmentTest(unittest.TestCase):
                                       ["key_1", "key_2"], "result")
 
         self.assertTrue(self.environment.are_equals("result", "value_2"))
-
-    def test_can_define_internal_colaborator(self): pass
 
     def test_implement_class_hierarchies(self): pass
