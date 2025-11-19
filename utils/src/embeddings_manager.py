@@ -1,0 +1,1 @@
+class EmbeddingsManager: pass

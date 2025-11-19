@@ -1,5 +1,5 @@
-from src.Environment import Environment
 import unittest
+from mini_smalltalk.src.Environment import Environment
 
 class DictiornayTest(unittest.TestCase):
     
