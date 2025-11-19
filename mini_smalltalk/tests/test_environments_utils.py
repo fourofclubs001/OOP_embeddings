@@ -127,3 +127,5 @@ class EnvironmentUtilsTest(unittest.TestCase):
         ]
         
         self.assertListEqual(trace, expected_trace)
+
+    def test_can_trace_with_string_new_method(self): pass
