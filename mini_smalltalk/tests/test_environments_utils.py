@@ -1,5 +1,5 @@
 import unittest
-from src.Environment import *
+from mini_smalltalk.src.Environment import *
 
 class EnvironmentUtilsTest(unittest.TestCase):
 
@@ -127,3 +127,12 @@ class EnvironmentUtilsTest(unittest.TestCase):
         ]
         
         self.assertListEqual(trace, expected_trace)
+
+    def test_can_trace_with_string_new_method(self):
+
+        trace = self.environment.send_message("String", "new", ["string_value"], "string", trace=True, base_case=True)
+
+        self.assertEqual(trace[0][0], self.environment.objects["String"]["id"])
+        self.assertEqual(trace[0][1], ('Class', 'new'))
+        self.assertEqual(trace[0][2], ['string_value'])
+        self.assertEqual(trace[0][3], self.environment.objects["string"]["id"])

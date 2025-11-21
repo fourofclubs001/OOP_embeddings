@@ -171,11 +171,21 @@ class Environment:
 
         if trace and selector in self.virtual_machine_implementations:
 
-            self.trace.append((
-                self.objects[receptor]["id"], 
-                (self.objects[receptor]["class_methods"]["class"][2], selector),
-                [self.objects[colaborator]["id"] for colaborator in colaborators], 
-                self.objects[result]["id"]))
+            if receptor == "String" and selector == "new":
+
+                self.trace.append((
+                    self.objects[receptor]["id"], 
+                    (self.objects[receptor]["class_methods"]["class"][2], selector),
+                    [colaborators[0]], 
+                    self.objects[result]["id"]))
+
+            else:
+
+                self.trace.append((
+                    self.objects[receptor]["id"], 
+                    (self.objects[receptor]["class_methods"]["class"][2], selector),
+                    [self.objects[colaborator]["id"] for colaborator in colaborators], 
+                    self.objects[result]["id"]))
             
         if trace and base_case:
 
@@ -255,19 +265,21 @@ class Environment:
 
         return method_dictionary
 
-    def message_rename(self, method_dictionary, 
-                       message_receptor_rename, 
-                       message_colaborators_rename):
-
+    def message_rename_receptor(self, method_dictionary, message_receptor_rename):
+        
+        message_receptor = method_dictionary[message_receptor_rename]
+        
+        return message_receptor
+    
+    def message_rename_colaborators(self, method_dictionary, message_colaborators_rename):
+        
         message_colaborators = []
             
         for idx in range(len(message_colaborators_rename)):
             
             message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
-
-        message_receptor = method_dictionary[message_receptor_rename]
-        
-        return message_receptor, message_colaborators
+            
+        return message_colaborators
 
     def execute_method(self, receptor, selector, colaborators, result, trace = False):
             
@@ -285,9 +297,11 @@ class Environment:
                 if message_result_rename not in method_dictionary:
                     method_dictionary[message_result_rename] = message_result_rename
 
-            message_receptor, message_colaborators = self.message_rename(method_dictionary, 
-                                                                         message_receptor_rename,
-                                                                         message_colaborators_rename)
+            message_receptor = self.message_rename_receptor(method_dictionary, message_receptor_rename)
+            
+            if message_receptor == "String": message_colaborators = message_colaborators_rename
+            
+            else: message_colaborators = self.message_rename_colaborators(method_dictionary, message_colaborators_rename)
             
             message_result = method_dictionary[message_result_rename]
 

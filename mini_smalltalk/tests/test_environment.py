@@ -1,5 +1,5 @@
 import unittest
-from src.Environment import *
+from mini_smalltalk.src.Environment import *
 
 class EnvironmentTest(unittest.TestCase):
 
