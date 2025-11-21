@@ -70,9 +70,15 @@ class Environment:
             "new": self.new_method_implementation,
             "value": self.value_method_implementation,
             "set": self.set_method_implementation,
-            "get": self.get_method_implementation
+            "get": self.get_method_implementation,
+            "==" : self.equals_method_implementation
             
         }
+
+    def define_booleans(self):
+        self.send_message("Class", "new", [], "True")
+        self.send_message("Class", "new", [], "False")
+
 
     def define_string_class(self):
         
@@ -84,12 +90,17 @@ class Environment:
         self.send_message("Class", "new", [], "Dictionary")
         self.declare_virtual_machine_method("Dictionary", "set")
         self.declare_virtual_machine_method("Dictionary", "get")
+        self.define_method("Dictionary", "==", ["other"], [], "last_bool_result")
 
     def define_core_objects_name(self):
         
         self.send_message("String", "new", ["Nil"], "Nil_name")
         self.send_message("String", "new", ["Object"], "Object_name")
         self.send_message("String", "new", ["Class"], "Class_name")
+        self.define_method("String", "==", ["other"], [], "last_bool_result")
+
+
+
 
     def __init__(self):
 
@@ -112,11 +123,37 @@ class Environment:
 
         self.define_core_objects_name()
 
+        self.define_booleans()
+
     # implementation
 
     def are_equals(self, object1, object2):
         
         return self.objects[object1]["id"] == self.objects[object2]["id"]
+    
+    def is_true(self, object):
+        return self.objects[object] == "True"
+    
+    def is_false(self, object):
+        return self.objects[object] == "False"
+    
+    def equals_method_implementation(self, receptor, colaborators, result):
+        self.send_message(receptor, "class", [], "tmp")
+        self.send_message("tmp", "name", [], "tmp")
+        self.send_message(colaborators[0], "class", [], "tmp2")
+        self.send_message("tmp2", "name", [], "tmp2")
+
+        if self.get_value("tmp") == "String" and self.get_value("tmp2") == "String":
+            if self.get_value(receptor) == self.get_value(colaborators[0]):
+                self.objects[result] = "True"
+            else:
+                self.objects[result] = "False"
+            return
+        if (self.are_equals(receptor, colaborators[0])):
+            self.objects[result] = "True"
+        else: 
+            self.objects[result] = "False"
+
 
     def raise_message_not_understood_error(self, receptor, selector):
         
@@ -208,7 +245,7 @@ class Environment:
             
         colaborators_rename, method_implementation, result = self.objects[receptor]["class_methods"][selector]
         
-        method_dictionary = {}
+        method_dictionary = {"self": receptor}
         
         for idx in range(len(colaborators)):
             
@@ -224,6 +261,9 @@ class Environment:
                 
                 message_colaborators.append(method_dictionary[message_colaborators_rename[idx]])
             
+            if(message_receptor == "self"):
+                message_receptor = method_dictionary["self"]
+
             self.send_message(message_receptor, message_selector, message_colaborators, message_result)
             
         return self.objects[result]

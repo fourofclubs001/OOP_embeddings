@@ -12,7 +12,7 @@ class EnvironmentUtilsTest(unittest.TestCase):
         
         classes = self.environment.get_classes()
         
-        expected_classes = set(["Object", "Class", "String", "Dictionary", "Lista"])
+        expected_classes = set(["Object", "Class", "String", "Dictionary", "Lista", "True", "False"])
         
         self.assertSetEqual(expected_classes, classes)
         
@@ -35,5 +35,10 @@ class EnvironmentUtilsTest(unittest.TestCase):
         expected_pairs.append(("Dictionary", "set"))
         expected_pairs.append(("Dictionary", "get"))
         expected_pairs.append(("String", "value"))
+
+        expected_pairs.append(("True", "class"))
+        expected_pairs.append(("False", "class"))
+        expected_pairs.append(("Dictionary", "=="))
+        expected_pairs.append(("String", "=="))
         
         self.assertSetEqual(set(expected_pairs), set(class_method_pairs))
