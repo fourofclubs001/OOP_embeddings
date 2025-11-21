@@ -171,11 +171,21 @@ class Environment:
 
         if trace and selector in self.virtual_machine_implementations:
 
-            self.trace.append((
-                self.objects[receptor]["id"], 
-                (self.objects[receptor]["class_methods"]["class"][2], selector),
-                [self.objects[colaborator]["id"] for colaborator in colaborators], 
-                self.objects[result]["id"]))
+            if receptor == "String" and selector == "new":
+
+                self.trace.append((
+                    self.objects[receptor]["id"], 
+                    (self.objects[receptor]["class_methods"]["class"][2], selector),
+                    [colaborators[0]], 
+                    self.objects[result]["id"]))
+
+            else:
+
+                self.trace.append((
+                    self.objects[receptor]["id"], 
+                    (self.objects[receptor]["class_methods"]["class"][2], selector),
+                    [self.objects[colaborator]["id"] for colaborator in colaborators], 
+                    self.objects[result]["id"]))
             
         if trace and base_case:
 
