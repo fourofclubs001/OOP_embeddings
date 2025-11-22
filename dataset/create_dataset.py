@@ -37,27 +37,30 @@ environment.define_method(
     ], 
     "dictionary")
 
+use_case_00_implementation = [
+    ("String", "new", ["first_main_key"], "first_main_key"),
+    ("String", "new", ["second_main_key"], "second_main_key"),
+    ("String", "new", ["first_main_value"], "first_main_value"),
+    ("String", "new", ["second_main_value"], "second_main_value"),
+    ("Dictionary", "new", [], "main_dictionary"),
+    ("main_dictionary", "set", ["first_main_key", "first_main_value"], "main_dictionary"),
+    ("main_dictionary", "set", ["second_main_key", "second_main_value"], "main_dictionary"),
+    ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary")
+]
+use_case_00_return = "result_dictionary"
+
 environment.define_method(
     "UseCase", "use_case_00", [],
-    [
-        ("String", "new", ["first_main_key"], "first_main_key"),
-        ("String", "new", ["second_main_key"], "second_main_key"),
-        ("String", "new", ["first_main_value"], "first_main_value"),
-        ("String", "new", ["second_main_value"], "second_main_value"),
-        ("Dictionary", "new", [], "main_dictionary"),
-        ("main_dictionary", "set", ["first_main_key", "first_main_value"], "main_dictionary"),
-        ("main_dictionary", "set", ["second_main_key", "second_main_value"], "main_dictionary"),
-        ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary")
-    ],
-    "result_dictionary"
+    use_case_00_implementation,
+    use_case_00_return
 )
 
 environment.send_message("UseCase", "new", [], "use_case")
-trace = environment.send_message("use_case", "use_case_00", [], "use_case_result", 
+virtual_trace = environment.send_message("use_case", "use_case_00", [], "use_case_result",
                                  trace=True, base_case=True)
 
-final_trace = initialization_trace + trace
+full_virtual_trace = initialization_trace + virtual_trace
 
-for line in final_trace:
+implementation_trace = dataset.from_implementation_to_trace(use_case_00_implementation, use_case_00_return)
 
-    print(line)
+full_implementation_trace = initialization_trace + implementation_trace
