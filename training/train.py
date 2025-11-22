@@ -67,6 +67,10 @@ class Trainer():
         loss.backward()
 
         self.optimizer.step()
+    
+    def train_for_multiple_traces(self, list_of_traces):
+        for trace in list_of_traces:
+            self.train_for(trace)
 
     def save_models(self, dir_path):
         torch.save(self.token_net.state_dict(), dir_path + "token_net.pth")
