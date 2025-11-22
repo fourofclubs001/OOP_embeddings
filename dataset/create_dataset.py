@@ -1,4 +1,5 @@
 from mini_smalltalk.src.Environment import Environment
+from dataset.dataset_utils import DatasetUtils
 
 environment = Environment()
 
@@ -61,6 +62,22 @@ virtual_trace = environment.send_message("use_case", "use_case_00", [], "use_cas
 
 full_virtual_trace = initialization_trace + virtual_trace
 
-implementation_trace = dataset.from_implementation_to_trace(use_case_00_implementation, use_case_00_return)
+print("Virtual Trace \n")
+
+for line in full_virtual_trace:
+
+    print(line)
+
+print("")
+
+dataset_utils = DatasetUtils(environment)
+
+implementation_trace = dataset_utils.implementation_to_trace(use_case_00_implementation, use_case_00_return)
 
 full_implementation_trace = initialization_trace + implementation_trace
+
+print("Implementation trace \n")
+
+for line in full_implementation_trace:
+
+    print(line)
