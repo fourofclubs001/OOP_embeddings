@@ -1,7 +1,7 @@
 import torch
 
 # Los ids de los objetos/tokens que tienen embedding se organizan tal que: 
-#      1.tokens de métodos 3.objetos dinámicamente creados
+#      1.tokens de métodos 2.objetos dinámicamente creados
 
 
 class Trainer():
@@ -19,8 +19,8 @@ class Trainer():
         self.optimizer = torch.optim.SGD([self.token_net.parameters(), self.application_net.parameters()], lr=0.01)
         self.loss_function = torch.nn.MSELoss()
 
-    def __offset_object_id(self, object_id):
-        return object_id + self.number_of_method_tokens
+    #def __offset_object_id(self, object_id):
+    #    return object_id
 
     def get_embedding_for_method_token(self, raw_token):
         token = self.method_token_codification[raw_token]
@@ -33,16 +33,15 @@ class Trainer():
     def get_embeddings_for_object_id_list(self, list_of_ids):
         return [self.get_embedding_for_object_id(object_id) for object_id in list_of_ids]
     
-    # Asumo que las clases vienen como numeros y se dividen los objetos según sean clases o no
     def get_embedding_for_object_id(self, number_of_object):
-        index_in_embedding_dictionary = self.__offset_object_id(number_of_object)
+        index_in_embedding_dictionary = number_of_object
         return self.embedding_dictionary[index_in_embedding_dictionary]
     
     def set_embedding_for_object_id(self, number_of_object, embedding):
-        self.embedding_dictionary[self.__offset_object_id(number_of_object)] = embedding
+        self.embedding_dictionary[number_of_object] = embedding
 
     def application_net_result(self, receiver_embedding, message_embedding, collaborators_embeddings):
-        return self.application_net(message_embedding, self.__offset_object_id(receiver_embedding), map(self.__offset_object_id, collaborators_embeddings))
+        return self.application_net(message_embedding, receiver_embedding,collaborators_embeddings)
 
     def train_for(self, trace):
         instruction_trace = trace[1:-1]
