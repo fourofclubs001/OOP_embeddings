@@ -1,6 +1,8 @@
+from mini_smalltalk.src.Environment import Environment
+
 class DatasetUtils:
 
-    def __init__(self, environment):
+    def __init__(self, environment: Environment):
 
         self.environment = environment
 
@@ -29,3 +31,31 @@ class DatasetUtils:
         trace.append(self.environment.objects[return_variable]["id"])
 
         return trace
+    
+    def get_use_cases(self, implementations):
+
+        self.environment.send_message("Class", "new", [], "UseCase")
+
+        traces = []
+
+        for implementation in implementations:
+
+            self.environment.define_method(
+                "UseCase", "use_case_selector", [], 
+                implementation[:-1], implementation[-1]
+            )
+
+            self.environment.send_message("UseCase", "new", [], "use_case")
+
+            virtual_trace = self.environment.send_message("use_case", "use_case_selector", 
+                                                          [], "", trace=True, base_case=True)
+            
+            implementation_trace = self.implementation_to_trace(implementation[:-1],
+                                                                implementation[-1])
+
+            traces.append({
+                "implementation": implementation_trace,
+                "virtual": virtual_trace
+            })
+            
+        return traces
