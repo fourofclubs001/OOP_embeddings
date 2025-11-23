@@ -1,5 +1,23 @@
 from mini_smalltalk.src.Environment import Environment
-from dataset.src.dataset_utils import DatasetUtils
+from dataset_utils.src.dataset_utils import DatasetUtils
+
+def print_traces(traces):
+
+    for idx, trace in enumerate(traces):
+
+        print(f"Trace {idx} \n")
+
+        for line in trace["implementation"]:
+
+            print(line)
+
+        print("")
+
+        for line in trace["virtual"]:
+
+            print(line)
+
+        print("")
 
 environment = Environment()
 
@@ -22,6 +40,7 @@ use_case_implementation = [
         ("String", "new", ["first_main_value"], "first_main_value"),
         ("String", "new", ["second_main_value"], "second_main_value"),
         ("Dictionary", "new", [], "main_dictionary"),
+        ("Dictionary", ("Class", "new"), [], "main_dictionary")
         ("main_dictionary", "set", ["first_main_key", "first_main_value"], "main_dictionary"),
         ("main_dictionary", "set", ["second_main_key", "second_main_value"], "main_dictionary"),
         ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary"),
@@ -61,18 +80,4 @@ dataset_utils = DatasetUtils(environment)
 
 traces = dataset_utils.get_use_cases(use_case_implementation)
 
-for idx, trace in enumerate(traces):
-
-    print(f"Trace {idx} \n")
-
-    for line in trace["implementation"]:
-
-        print(line)
-
-    print("")
-
-    for line in trace["virtual"]:
-
-        print(line)
-
-    print("")
+print_traces(traces)

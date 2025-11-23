@@ -1,5 +1,5 @@
 import unittest
-from dataset.src.dataset_utils import DatasetUtils
+from dataset_utils.src.dataset_utils import DatasetUtils
 from mini_smalltalk.src.Environment import Environment
 
 class TestDatsetUtils(unittest.TestCase):
