@@ -40,6 +40,20 @@ use_case_implementation = [
         ("main_dictionary", "set", ["third_main_key", "third_main_value"], "main_dictionary"),
         ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary"),
         "result_dictionary"
+    ],
+    [
+        ("String", "new", ["first_main_key"], "first_main_key"),
+        ("String", "new", ["second_main_key"], "second_main_key"),
+        ("String", "new", ["third_main_key"], "third_main_key"),
+        ("String", "new", ["first_main_value"], "first_main_value"),
+        ("String", "new", ["second_main_value"], "second_main_value"),
+        ("String", "new", ["third_main_value"], "third_main_value"),
+        ("Dictionary", "new", [], "main_dictionary"),
+        ("main_dictionary", "set", ["first_main_key", "first_main_value"], "main_dictionary"),
+        ("main_dictionary", "set", ["second_main_key", "second_main_value"], "main_dictionary"),
+        ("main_dictionary", "set", ["third_main_key", "third_main_value"], "main_dictionary"),
+        ("main_dictionary", "get_two_values", ["first_main_key", "third_main_key"], "result_dictionary"),
+        "result_dictionary"
     ]
 ]
 
