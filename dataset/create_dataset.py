@@ -38,7 +38,7 @@ environment.define_method(
     ], 
     "dictionary")
 
-use_case_00_implementation = [
+use_case_implementation = [
     ("String", "new", ["first_main_key"], "first_main_key"),
     ("String", "new", ["second_main_key"], "second_main_key"),
     ("String", "new", ["first_main_value"], "first_main_value"),
@@ -46,38 +46,23 @@ use_case_00_implementation = [
     ("Dictionary", "new", [], "main_dictionary"),
     ("main_dictionary", "set", ["first_main_key", "first_main_value"], "main_dictionary"),
     ("main_dictionary", "set", ["second_main_key", "second_main_value"], "main_dictionary"),
-    ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary")
+    ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary"),
+    "result_dictionary"
 ]
-use_case_00_return = "result_dictionary"
 
-environment.define_method(
-    "UseCase", "use_case_00", [],
-    use_case_00_implementation,
-    use_case_00_return
-)
+dataset_utils = DatasetUtils(environment)
 
-environment.send_message("UseCase", "new", [], "use_case")
-virtual_trace = environment.send_message("use_case", "use_case_00", [], "use_case_result",
-                                 trace=True, base_case=True)
+traces = dataset_utils.get_use_cases([use_case_implementation])
 
-full_virtual_trace = initialization_trace + virtual_trace
+implementation_trace = traces[0]["implementation"]
+virtual_trace = traces[0]["virtual"]
 
-print("Virtual Trace \n")
-
-for line in full_virtual_trace:
+for line in implementation_trace:
 
     print(line)
 
 print("")
 
-dataset_utils = DatasetUtils(environment)
-
-implementation_trace = dataset_utils.implementation_to_trace(use_case_00_implementation, use_case_00_return)
-
-full_implementation_trace = initialization_trace + implementation_trace
-
-print("Implementation trace \n")
-
-for line in full_implementation_trace:
+for line in virtual_trace:
 
     print(line)
