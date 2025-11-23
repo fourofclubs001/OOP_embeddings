@@ -40,7 +40,6 @@ use_case_implementation = [
         ("String", "new", ["first_main_value"], "first_main_value"),
         ("String", "new", ["second_main_value"], "second_main_value"),
         ("Dictionary", "new", [], "main_dictionary"),
-        ("Dictionary", ("Class", "new"), [], "main_dictionary")
         ("main_dictionary", "set", ["first_main_key", "first_main_value"], "main_dictionary"),
         ("main_dictionary", "set", ["second_main_key", "second_main_value"], "main_dictionary"),
         ("main_dictionary", "get_two_values", ["first_main_key", "second_main_key"], "result_dictionary"),
