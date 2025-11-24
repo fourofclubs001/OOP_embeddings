@@ -32,6 +32,16 @@ class Trainer():
             return None
         return self.embedding_dictionary[object_id]
 
+    def get_embedding_for_method_token(self, method_token):
+        if method_token not in self.method_token_codification.keys():
+            return None
+
+        method_token_id = self.method_token_codification[method_token]
+        if method_token_id not in self.method_token_embeddings.keys():
+            return None
+
+        return self.method_token_embeddings[method_token_id]
+
     def __get_embedding_for_method_token(self, raw_token):
         token = self.method_token_codification[raw_token]
         if raw_token in self.method_token_embeddings.keys():
@@ -89,7 +99,6 @@ class Trainer():
         loss.backward()
         self.optimizer.step()
 
-        self.__reset_embeddings()
 
         print(f"Loss: {loss:.3f}")
 
@@ -111,9 +120,11 @@ class Trainer():
         for trace in list_of_traces:
             print(f"--- Method {number_of_steps} ---")
             self.losses_record.append(self.train_for(trace))
+            self.__reset_embeddings()
             print(f"--- End of Step ---")
             number_of_steps += 1
 
+        return self.losses_record
 
     def save_models(self, dir_path):
         torch.save(self.token_net.state_dict(), dir_path + "token_net.pth")
