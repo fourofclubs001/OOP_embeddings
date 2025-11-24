@@ -131,8 +131,8 @@ class Trainer():
         torch.save(self.application_net.state_dict(), dir_path + "application_net.pth")
 
     def load_models(self, token_net_path, application_net_path):
-        self.token_net.load_state_dict(torch.load(token_net_path))
-        self.application_net.load_state_dict(torch.load(application_net_path))
+        self.token_net.load_state_dict(torch.load(token_net_path, weights_only=False))
+        self.application_net.load_state_dict(torch.load(application_net_path, weights_only=False))
     
 
 

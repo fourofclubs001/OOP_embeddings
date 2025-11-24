@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ec94ec6-7cac-4c8e-9a11-2b8ae29b60ce" name="Changes" comment="">
+    <list default="true" id="7ec94ec6-7cac-4c8e-9a11-2b8ae29b60ce" name="Changes" comment="Added basic tests">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/tests/test_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/tests/test_training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/tests/token_net.pth" beforeDir="false" afterPath="$PROJECT_DIR$/training/tests/token_net.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/token_net.pth" beforeDir="false" afterPath="$PROJECT_DIR$/token_net.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/training/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/train.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -18,6 +17,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "alu-vvoz"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/fourofclubs001/OOP_embeddings.git",
+    "accountId": "79b2ffbe-ed5b-4f74-9a1d-c26b53b6da9a"
+  }
+}]]></component>
   <component name="ProjectColorInfo"><![CDATA[{
   "customColor": "",
   "associatedIndex": 1
@@ -32,6 +43,7 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "Python tests.Unittests for training.tests.test_training.TrainingTest.executor": "Run",
     "Python tests.Unittests for training.tests.test_training.TrainingTest.test_collaborators_with_a_string_get_all_ignored.executor": "Run",
+    "Python tests.Unittests for training.tests.test_training.TrainingTest.test_load_neural_nets_correctly.executor": "Debug",
     "Python tests.Unittests for training.tests.test_training.TrainingTest.test_neural_nets_are_saved.executor": "Run",
     "Python tests.Unittests for training.tests.test_training.TrainingTest.test_runs_correctly.executor": "Run",
     "Python tests.Unittests in tests (1).executor": "Run",
@@ -43,7 +55,7 @@
     "settings.editor.selected.configurable": "editor.preferences.inline.completion"
   }
 }]]></component>
-  <component name="RunManager" selected="Python tests.Unittests in tests (1)">
+  <component name="RunManager" selected="Python tests.Unittests for training.tests.test_training.TrainingTest.test_load_neural_nets_correctly">
     <configuration name="Unittests for training.tests.test_training.TrainingTest" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="OOP_embeddings" />
       <option name="ENV_FILES" value="" />
@@ -74,6 +86,21 @@
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="Unittests for training.tests.test_training.TrainingTest.test_load_neural_nets_correctly" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="OOP_embeddings" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;training.tests.test_training.TrainingTest.test_load_neural_nets_correctly&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
     <configuration name="Unittests for training.tests.test_training.TrainingTest.test_neural_nets_are_saved" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="OOP_embeddings" />
       <option name="ENV_FILES" value="" />
@@ -86,21 +113,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
       <option name="_new_target" value="&quot;training.tests.test_training.TrainingTest.test_neural_nets_are_saved&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for training.tests.test_training.TrainingTest.test_runs_correctly" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="OOP_embeddings" />
-      <option name="ENV_FILES" value="" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;training.tests.test_training.TrainingTest.test_runs_correctly&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -121,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Python tests.Unittests for training.tests.test_training.TrainingTest.test_load_neural_nets_correctly" />
         <item itemvalue="Python tests.Unittests in tests (1)" />
         <item itemvalue="Python tests.Unittests for training.tests.test_training.TrainingTest.test_neural_nets_are_saved" />
         <item itemvalue="Python tests.Unittests for training.tests.test_training.TrainingTest.test_collaborators_with_a_string_get_all_ignored" />
         <item itemvalue="Python tests.Unittests for training.tests.test_training.TrainingTest" />
-        <item itemvalue="Python tests.Unittests for training.tests.test_training.TrainingTest.test_runs_correctly" />
       </list>
     </recent_temporary>
   </component>
@@ -144,17 +156,19 @@
       <option name="presentableId" value="Default" />
       <updated>1763998114389</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added basic tests">
+      <option name="closed" value="true" />
+      <created>1764009447297</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1764009447297</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/training/tests/test_training.py</url>
-          <line>16</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Added basic tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added basic tests" />
   </component>
 </project>
