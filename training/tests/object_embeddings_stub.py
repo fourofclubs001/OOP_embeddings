@@ -16,4 +16,6 @@ class ObjectEmbedding(nn.Module):
                 int_colabs,     # lista de embeddings de colaboradores internos 
                 ext_colabs,     # lista de embeddings de colaboradores externos 
                 ):
+        if int_colabs.size(0) >= 1:
+            return torch.ones(1,self.embedding_size)
         return torch.zeros(1,self.embedding_size)
