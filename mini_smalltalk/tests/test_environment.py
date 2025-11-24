@@ -289,4 +289,19 @@ class EnvironmentTest(unittest.TestCase):
 
         self.assertTrue(self.environment.are_equals("result", "value_2"))
 
+    def test_can_create_an_object_twice(self):
+
+        self.environment.define_method(
+            "String", "some_string_new", [],
+            [
+                ("String", "new", ["some_string"], "some_string")
+            ],
+            "some_string")
+
+        self.environment.send_message("String", "new", ["string"], "string")
+        self.environment.send_message("string", "some_string_new", [], "string")
+        self.environment.send_message("string", "some_string_new", [], "string")
+
+        self.assertEqual(self.environment.get_value("string"), "some_string")
+
     def test_implement_class_hierarchies(self): pass
