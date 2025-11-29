@@ -27,7 +27,7 @@ class TestObjectEmbedding(unittest.TestCase):
 
     def test_initialization_dimensions(self):
         """
-        Verifica que el modelo calculó bien el tamaño de entrada interno.
+        Verifica que el modelo calcule bien el tamaño de entrada interno
         """
         #Tamaño esperado calculado "a mano": 4*(2 + 3 + 2) = 28
         expected_size = self.emb_dim * (2 + self.num_int + self.num_ext)
@@ -60,7 +60,7 @@ class TestObjectEmbedding(unittest.TestCase):
 
     def test_internal_padding_logic(self):
         """
-        Verifica que la función interna fill_list haga el padding y truncado correctamente.
+        Verifica que la función interna fill_list haga bien el padding y truncado
         """
         # Max int es 3 (self.num_int)
         
