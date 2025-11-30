@@ -21,7 +21,7 @@ class Trainer():
         self.embedding_dictionary = {}
 
         self.token_net = torch.nn.Embedding(self.number_of_method_tokens + self.number_of_class_tokens , embedding_dim)
-        self.application_net = ObjectEmbedding(embedding_dim, 0, 0, embedding_dim)
+        self.application_net = ObjectEmbedding(embedding_dim, 1, 0, embedding_dim)
 
         self.optimizer = torch.optim.SGD(itertools.chain(self.token_net.parameters(), self.application_net.parameters()), lr=0.01)
         self.loss_function = torch.nn.MSELoss()
@@ -65,7 +65,7 @@ class Trainer():
         self.embedding_dictionary[object_id] = embedding
 
     def __application_net_result(self, receiver_embedding, message_embedding, collaborators_embeddings):
-        return self.application_net(message_embedding, receiver_embedding, collaborators_embeddings, torch.tensor([]))
+        return self.application_net(message_embedding, receiver_embedding, torch.tensor(collaborators_embeddings), torch.tensor([]))
 
     def __reset_embeddings(self):
         self.method_token_embeddings.clear()
