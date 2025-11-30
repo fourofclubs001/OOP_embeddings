@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ec94ec6-7cac-4c8e-9a11-2b8ae29b60ce" name="Changes" comment="">
+    <list default="true" id="7ec94ec6-7cac-4c8e-9a11-2b8ae29b60ce" name="Changes" comment="corrected internal collabs torch errors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/application_net.pth" beforeDir="false" afterPath="$PROJECT_DIR$/application_net.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/token_net.pth" beforeDir="false" afterPath="$PROJECT_DIR$/token_net.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/src/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/src/train.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/tests/application_net.pth" beforeDir="false" afterPath="$PROJECT_DIR$/training/tests/application_net.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/tests/object_embeddings_stub.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/tests/object_embeddings_stub.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/tests/test_training.py" beforeDir="false" afterPath="$PROJECT_DIR$/training/tests/test_training.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/training/tests/token_net.pth" beforeDir="false" afterPath="$PROJECT_DIR$/training/tests/token_net.pth" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,12 +172,23 @@
       <option name="project" value="LOCAL" />
       <updated>1764010356430</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="corrected internal collabs torch errors">
+      <option name="closed" value="true" />
+      <created>1764019003341</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1764019003341</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Added basic tests" />
     <MESSAGE value="modification to load model" />
-    <option name="LAST_COMMIT_MESSAGE" value="modification to load model" />
+    <MESSAGE value="added main changes" />
+    <MESSAGE value="corrected" />
+    <MESSAGE value="corrected internal collabs torch errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="corrected internal collabs torch errors" />
   </component>
 </project>
