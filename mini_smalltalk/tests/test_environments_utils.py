@@ -15,6 +15,15 @@ class EnvironmentUtilsTest(unittest.TestCase):
         expected_classes = set(["Object", "Class", "String", "Dictionary", "Lista"])
         
         self.assertSetEqual(expected_classes, classes)
+
+    def test_can_get_every_class_id(self):
+        classes_ids = self.environment.get_classes_ids()
+
+        expected_classes = set(["Object", "Class", "String", "Dictionary", "Lista"])
+        expected_class_ids = set([self.environment.objects[class_name]["id"] for class_name in expected_classes ])
+
+        self.assertEqual(expected_class_ids, classes_ids)
+
         
     def test_can_get_every_class_method_pair(self):
         

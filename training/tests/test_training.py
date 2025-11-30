@@ -1,13 +1,14 @@
 import unittest
 import os
-from training.src.train import Trainer
+from training.src.trainer import Trainer
+from training.tests.object_embeddings_stub import ObjectEmbedding
 
 class TrainingTest(unittest.TestCase):
     
     def setUp(self):
         list_of_method_tokens = [("Class","doNothing"),("Class", "pass"),("Class", "doSomething"),("Class", "act1"),("Class", "act2"),("Class", "actWithCollabs")]
         list_of_class_tokens = [1]
-        self.trainer = Trainer(list_of_method_tokens, list_of_class_tokens, 1)
+        self.trainer = Trainer(list_of_method_tokens, list_of_class_tokens, 1, 2, ObjectEmbedding)
     
     def test_trainer_assigns_id_correct_embedding(self):
         trace = [(1,("Class", "doNothing"), [], 2), (1,("Class", "pass"),[],2), 2]
