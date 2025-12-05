@@ -1,3 +1,4 @@
+import json
 from mini_smalltalk.src.Environment import Environment
 from dataset_utils.src.dataset_utils import DatasetUtils
 
@@ -21,17 +22,19 @@ def print_traces(traces, file = None):
 
 environment = Environment()
 
-environment.define_method(
-    "Dictionary", "get_two_values", 
-    ["first_key", "second_key"],
-    [
-        ("self", "get", ["first_key"], "first_value"),
-        ("self", "get", ["second_key"], "second_value"),
-        ("Dictionary", "new", [], "dictionary"),
-        ("dictionary", "set", ["first_key", "first_value"], "dictionary"),
-        ("dictionary", "set", ["second_key", "second_value"], "dictionary")
-    ], 
-    "dictionary")
+with open("dataset_utils/methods_register.json", 'r') as file:
+        
+    data = json.load(file)
+
+    for method_definition in data:
+
+        environment.define_method(
+            method_definition[0], 
+            method_definition[1], 
+            method_definition[2], 
+            method_definition[3], 
+            method_definition[4]
+        )
 
 use_case_implementation = [
     [
