@@ -26,7 +26,7 @@ dataset_utils = DatasetUtils(environment)
 
 dataset_utils.define_method_environment("dataset_utils/methods_register.json")
 
-traces = dataset_utils.get_use_case_traces()
+traces = dataset_utils.get_use_case_traces("dataset_utils/use_case_register.json")
 
 with open("traces.txt", "w") as file:
 

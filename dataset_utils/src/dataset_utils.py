@@ -23,9 +23,9 @@ class DatasetUtils:
                     method_definition[4]
                 )
 
-    def get_use_case_traces(self):
+    def get_use_case_traces(self, use_case_register_file_dir):
 
-        with open("dataset_utils/use_case_register.json", 'r') as file:
+        with open(use_case_register_file_dir, 'r') as file:
 
             use_case_implementation = json.load(file)
 
