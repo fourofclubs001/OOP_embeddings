@@ -48,7 +48,6 @@ class DatasetUtils:
             self.environment.send_message("UseCase", "new", [], "use_case")
 
             #TODO: FALTA DEFINIR QUIEN INVOCA LA IMPLEMENTACIÓN PROPUESTA
-            first_tuple = (self.environment.objects["UseCase"]["id"], ("UseCase", "use_case_selector"), [], 10000)
 
             virtual_trace = self.environment.send_message("use_case", "use_case_selector", 
                                                           [], "", trace=True, base_case=True)
@@ -56,8 +55,6 @@ class DatasetUtils:
             implementation_trace = self.implementation_to_trace(implementation[:-1],
                                                                 implementation[-1])
 
-            implementation_trace.insert(0, first_tuple)
-            virtual_trace.insert(0, first_tuple)
             traces.append({
                 "implementation": implementation_trace,
                 "virtual": virtual_trace

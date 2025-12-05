@@ -12,7 +12,7 @@ class TrainingTest(unittest.TestCase):
     
     def test_trainer_assigns_id_correct_embedding(self):
         trace = [(1,("Class", "doNothing"), [], 2), (1,("Class", "pass"),[],2), 2]
-        self.trainer.train_for(trace)
+        self.trainer.get_result_embedding_for_trace(trace)
         self.assertEqual(0, self.trainer.get_embedding_for_object_id(2))
         self.assertTrue(self.trainer.get_embedding_for_method_token(("Class", "doNothing")) is not None)
         self.assertTrue(self.trainer.get_embedding_for_method_token(("Class", "pass")) is not None)
@@ -20,7 +20,7 @@ class TrainingTest(unittest.TestCase):
 
     def test_multiple_assigns_id_correct_embedding(self):
         trace = [(1, ("Class", "doSomething"), [], 3), (1, ("Class", "act1"), [], 2), (2, ("Class", "act2"), [], 3), 3]
-        self.trainer.train_for(trace)
+        self.trainer.get_result_embedding_for_trace(trace)
         self.assertTrue(self.trainer.get_embedding_for_object_id(2) is not None)
         self.assertTrue(self.trainer.get_embedding_for_object_id(3) is not None)
         self.assertTrue(self.trainer.get_embedding_for_method_token(("Class", "doSomething")) is not None)
@@ -29,7 +29,7 @@ class TrainingTest(unittest.TestCase):
 
     def test_collaborators_with_a_string_get_all_ignored(self):
         trace = [(1, ("Class", "doNothing"), [], 2), (1, ("Class", "actWithCollabs"), ["stringToIgnore"], 2), 2]
-        self.trainer.train_for(trace)
+        self.trainer.get_result_embedding_for_trace(trace)
 
         self.assertTrue(self.trainer.get_embedding_for_object_id(2) is not None)
         self.assertTrue(self.trainer.get_embedding_for_object_id("stringToIgnore") is None)
@@ -45,7 +45,7 @@ class TrainingTest(unittest.TestCase):
     def test_trace_with_external_collaborators(self):
         trace = [(1, ("Class", "doSomething"), [], 3), (1, ("Class", "act1"), [], 2), (1, ("Class", "actWithCollabs"), [2], 3), 3]
 
-        self.trainer.train_for(trace)
+        self.trainer.get_result_embedding_for_trace(trace)
 
         self.assertTrue(self.trainer.get_embedding_for_object_id(2) is not None)
         self.assertEqual(1, self.trainer.get_embedding_for_object_id(3).item())
@@ -55,7 +55,7 @@ class TrainingTest(unittest.TestCase):
 
     def test_neural_nets_are_saved(self):
         trace = [(1, ("Class", "doNothing"), [], 2), (1, ("Class", "pass"), [], 2), 2]
-        self.trainer.train_for(trace)
+        self.trainer.get_result_embedding_for_trace(trace)
         self.trainer.save_models("")
         self.assertTrue(os.path.exists("token_net.pth"))
         self.assertTrue(os.path.exists("application_net.pth"))

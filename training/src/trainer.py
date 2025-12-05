@@ -1,4 +1,5 @@
 import itertools
+from sys import implementation
 
 import torch
 import matplotlib.pyplot as plt
@@ -83,13 +84,8 @@ class Trainer():
         self.method_token_embeddings.clear()
         self.embedding_dictionary.clear()
 
-    def train_for(self, trace_by_type):
-        trace = trace_by_type["virtual"]
-        instruction_trace = trace[1:-1]
-        objective_method_token = trace[0][1]
-        objective_result_variable = trace[0][3]
-
-        print("Training for execution: " + str(objective_method_token))
+    def get_result_embedding_for_trace(self, trace):
+        instruction_trace = trace[:-1]
 
         for instruction in instruction_trace:
             receiver = instruction[0]
@@ -104,20 +100,9 @@ class Trainer():
             result_embedding = self.__application_net_result(receiver_embedding, message_embedding, collaborators_embeddings)
             self.__set_embedding_for_object_id(result_variable, result_embedding)
 
-        objective_method_embedding = self.__get_embedding_for_method_token(objective_method_token)
         embedding_of_returned_value = self.__get_embedding_for_object_id(trace[-1])
-        self.__set_embedding_for_object_id(objective_result_variable, embedding_of_returned_value)
+        return embedding_of_returned_value
 
-        loss = self.loss_function(objective_method_embedding, embedding_of_returned_value)
-        
-        self.optimizer.zero_grad() 
-        loss.backward()
-        self.optimizer.step()
-
-
-        print(f"Loss: {loss:.3f}")
-
-        return loss.item()
 
     def show_loss_results(self):
         fig, ax = plt.subplots()
@@ -129,14 +114,36 @@ class Trainer():
         ax.grid()
 
         plt.show()
-    
+
+    def train_for(self, pair_of_traces):
+        virtual_trace = pair_of_traces["virtual"]
+        implementation_trace = pair_of_traces["implementation"]
+        virtual_result_embedding = self.get_result_embedding_for_trace(virtual_trace)
+
+        self.method_token_embeddings.clear()
+        self.embedding_dictionary.clear()
+
+        implementation_result_embedding = self.get_result_embedding_for_trace(implementation_trace)
+
+        loss = self.loss_function(virtual_result_embedding, implementation_result_embedding)
+
+        self.optimizer.zero_grad()
+        loss.backward()
+        self.optimizer.step()
+
+        print(f"Loss: {loss:.3f}")
+
+        return loss.item()
+
     def train_for_multiple_traces(self, list_of_traces):
         number_of_steps = 0
         self.losses_record = []
         for trace in list_of_traces:
             print(f"--- Method {number_of_steps} ---")
             self.losses_record.append(self.train_for(trace))
+
             self.method_token_embeddings.clear()
+            self.embedding_dictionary.clear()
             print(f"--- End of Step ---")
             number_of_steps += 1
 
