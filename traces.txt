@@ -1,0 +1,90 @@
+Trace 0 
+
+(3, ('Class', 'new'), ['first_main_key'], 14)
+(3, ('Class', 'new'), ['second_main_key'], 15)
+(3, ('Class', 'new'), ['first_main_value'], 16)
+(3, ('Class', 'new'), ['second_main_value'], 17)
+(5, ('Class', 'new'), [], 18)
+(18, ('Dictionary', 'set'), [14, 16], 18)
+(18, ('Dictionary', 'set'), [15, 17], 18)
+(18, ('Dictionary', 'get_two_values'), [14, 15], 20)
+20
+
+(3, ('Class', 'new'), ['first_main_key'], 14)
+(3, ('Class', 'new'), ['second_main_key'], 15)
+(3, ('Class', 'new'), ['first_main_value'], 16)
+(3, ('Class', 'new'), ['second_main_value'], 17)
+(5, ('Class', 'new'), [], 18)
+(18, ('Dictionary', 'set'), [14, 16], 18)
+(18, ('Dictionary', 'set'), [15, 17], 18)
+(18, ('Dictionary', 'get'), [14], 16)
+(18, ('Dictionary', 'get'), [15], 17)
+(5, ('Class', 'new'), [], 20)
+(20, ('Dictionary', 'set'), [14, 16], 20)
+(20, ('Dictionary', 'set'), [15, 17], 20)
+20
+
+Trace 1 
+
+(3, ('Class', 'new'), ['first_main_key'], 24)
+(3, ('Class', 'new'), ['second_main_key'], 25)
+(3, ('Class', 'new'), ['third_main_key'], 26)
+(3, ('Class', 'new'), ['first_main_value'], 27)
+(3, ('Class', 'new'), ['second_main_value'], 28)
+(3, ('Class', 'new'), ['third_main_value'], 29)
+(5, ('Class', 'new'), [], 30)
+(30, ('Dictionary', 'set'), [24, 27], 30)
+(30, ('Dictionary', 'set'), [25, 28], 30)
+(30, ('Dictionary', 'set'), [26, 29], 30)
+(30, ('Dictionary', 'get_two_values'), [24, 25], 32)
+32
+
+(3, ('Class', 'new'), ['first_main_key'], 24)
+(3, ('Class', 'new'), ['second_main_key'], 25)
+(3, ('Class', 'new'), ['third_main_key'], 26)
+(3, ('Class', 'new'), ['first_main_value'], 27)
+(3, ('Class', 'new'), ['second_main_value'], 28)
+(3, ('Class', 'new'), ['third_main_value'], 29)
+(5, ('Class', 'new'), [], 30)
+(30, ('Dictionary', 'set'), [24, 27], 30)
+(30, ('Dictionary', 'set'), [25, 28], 30)
+(30, ('Dictionary', 'set'), [26, 29], 30)
+(30, ('Dictionary', 'get'), [24], 27)
+(30, ('Dictionary', 'get'), [25], 28)
+(5, ('Class', 'new'), [], 32)
+(32, ('Dictionary', 'set'), [24, 27], 32)
+(32, ('Dictionary', 'set'), [25, 28], 32)
+32
+
+Trace 2 
+
+(3, ('Class', 'new'), ['first_main_key'], 36)
+(3, ('Class', 'new'), ['second_main_key'], 37)
+(3, ('Class', 'new'), ['third_main_key'], 38)
+(3, ('Class', 'new'), ['first_main_value'], 39)
+(3, ('Class', 'new'), ['second_main_value'], 40)
+(3, ('Class', 'new'), ['third_main_value'], 41)
+(5, ('Class', 'new'), [], 42)
+(42, ('Dictionary', 'set'), [36, 39], 42)
+(42, ('Dictionary', 'set'), [37, 40], 42)
+(42, ('Dictionary', 'set'), [38, 41], 42)
+(42, ('Dictionary', 'get_two_values'), [36, 38], 44)
+44
+
+(3, ('Class', 'new'), ['first_main_key'], 36)
+(3, ('Class', 'new'), ['second_main_key'], 37)
+(3, ('Class', 'new'), ['third_main_key'], 38)
+(3, ('Class', 'new'), ['first_main_value'], 39)
+(3, ('Class', 'new'), ['second_main_value'], 40)
+(3, ('Class', 'new'), ['third_main_value'], 41)
+(5, ('Class', 'new'), [], 42)
+(42, ('Dictionary', 'set'), [36, 39], 42)
+(42, ('Dictionary', 'set'), [37, 40], 42)
+(42, ('Dictionary', 'set'), [38, 41], 42)
+(42, ('Dictionary', 'get'), [36], 39)
+(42, ('Dictionary', 'get'), [38], 41)
+(5, ('Class', 'new'), [], 44)
+(44, ('Dictionary', 'set'), [36, 39], 44)
+(44, ('Dictionary', 'set'), [38, 41], 44)
+44
+

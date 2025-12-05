@@ -1,23 +1,23 @@
 from mini_smalltalk.src.Environment import Environment
 from dataset_utils.src.dataset_utils import DatasetUtils
 
-def print_traces(traces):
+def print_traces(traces, file = None):
 
     for idx, trace in enumerate(traces):
 
-        print(f"Trace {idx} \n")
+        print(f"Trace {idx} \n", file=file)
 
         for line in trace["implementation"]:
 
-            print(line)
+            print(line, file=file)
 
-        print("")
+        print("", file=file)
 
         for line in trace["virtual"]:
 
-            print(line)
+            print(line, file=file)
 
-        print("")
+        print("", file=file)
 
 environment = Environment()
 
@@ -79,4 +79,6 @@ dataset_utils = DatasetUtils(environment)
 
 traces = dataset_utils.get_use_cases(use_case_implementation)
 
-print_traces(traces)
+with open("traces.txt", "w") as file:
+
+    print_traces(traces, file)
