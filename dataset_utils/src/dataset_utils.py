@@ -33,6 +33,30 @@ class DatasetUtils:
 
         return traces
 
+    def write_traces(self, traces, traces_file_dir):
+
+        with open(traces_file_dir, "w") as file:
+
+            self.print_traces(traces, file)
+
+    def print_traces(self, traces, file = None):
+
+        for idx, trace in enumerate(traces):
+
+            print(f"Trace {idx} \n", file=file)
+
+            for line in trace["implementation"]:
+
+                print(line, file=file)
+
+            print("", file=file)
+
+            for line in trace["virtual"]:
+
+                print(line, file=file)
+
+            print("", file=file)
+
     def implementation_to_trace(self, implementation, return_variable):
 
         trace = []
