@@ -22,27 +22,11 @@ def print_traces(traces, file = None):
 
 environment = Environment()
 
-with open("dataset_utils/methods_register.json", 'r') as file:
-        
-    data = json.load(file)
-
-    for method_definition in data:
-
-        environment.define_method(
-            method_definition[0], 
-            method_definition[1], 
-            method_definition[2], 
-            method_definition[3], 
-            method_definition[4]
-        )
-
 dataset_utils = DatasetUtils(environment)
 
-with open("dataset_utils/use_case_register.json", 'r') as file:
+dataset_utils.define_method_environment("dataset_utils/methods_register.json")
 
-    use_case_implementation = json.load(file)
-
-    traces = dataset_utils.get_use_cases(use_case_implementation)
+traces = dataset_utils.get_use_case_traces()
 
 with open("traces.txt", "w") as file:
 
