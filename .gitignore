@@ -2,4 +2,5 @@
 .vscode
 .env
 .pth
+.idea
 __pycache__
