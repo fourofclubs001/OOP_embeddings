@@ -1,3 +1,4 @@
+import json
 from mini_smalltalk.src.Environment import Environment
 
 class DatasetUtils:
@@ -5,6 +6,56 @@ class DatasetUtils:
     def __init__(self, environment: Environment):
 
         self.environment = environment
+
+    def define_method_environment(self, methods_register_file_dir):
+
+        with open(methods_register_file_dir, 'r') as file:
+        
+            data = json.load(file)
+
+            for method_definition in data:
+
+                self.environment.define_method(
+                    method_definition[0], 
+                    method_definition[1], 
+                    method_definition[2], 
+                    method_definition[3], 
+                    method_definition[4]
+                )
+
+    def get_use_case_traces(self, use_case_register_file_dir):
+
+        with open(use_case_register_file_dir, 'r') as file:
+
+            use_case_implementation = json.load(file)
+
+            traces = self.get_use_case_implementation_traces(use_case_implementation)
+
+        return traces
+
+    def write_traces(self, traces, traces_file_dir):
+
+        with open(traces_file_dir, "w") as file:
+
+            self.print_traces(traces, file)
+
+    def print_traces(self, traces, file = None):
+
+        for idx, trace in enumerate(traces):
+
+            print(f"Trace {idx} \n", file=file)
+
+            for line in trace["implementation"]:
+
+                print(line, file=file)
+
+            print("", file=file)
+
+            for line in trace["virtual"]:
+
+                print(line, file=file)
+
+            print("", file=file)
 
     def implementation_to_trace(self, implementation, return_variable):
 
@@ -32,7 +83,7 @@ class DatasetUtils:
 
         return trace
     
-    def get_use_cases(self, implementations):
+    def get_use_case_implementation_traces(self, implementations):
 
         self.environment.send_message("Class", "new", [], "UseCase")
 

@@ -1,0 +1,14 @@
+[
+    [
+        "Dictionary", "get_two_values", 
+        ["first_key", "second_key"],
+        [
+            ["self", "get", ["first_key"], "first_value"],
+            ["self", "get", ["second_key"], "second_value"],
+            ["Dictionary", "new", [], "dictionary"],
+            ["dictionary", "set", ["first_key", "first_value"], "dictionary"],
+            ["dictionary", "set", ["second_key", "second_value"], "dictionary"]
+        ], 
+        "dictionary"
+    ]
+]
