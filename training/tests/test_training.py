@@ -8,7 +8,7 @@ class TrainingTest(unittest.TestCase):
     def setUp(self):
         list_of_method_tokens = [("Class","doNothing"),("Class", "pass"),("Class", "doSomething"),("Class", "act1"),("Class", "act2"),("Class", "actWithCollabs")]
         list_of_class_tokens = [1]
-        self.trainer = Trainer(list_of_method_tokens, list_of_class_tokens, 1, 2, ObjectEmbedding)
+        self.trainer = Trainer(list_of_method_tokens, list_of_class_tokens, 1, 2, app_net_class=ObjectEmbedding)
     
     def test_trainer_assigns_id_correct_embedding(self):
         trace = [(1,("Class", "doNothing"), [], 2), (1,("Class", "pass"),[],2), 2]

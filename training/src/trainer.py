@@ -10,12 +10,14 @@ from rnn.rnn_colabs_fijos import ObjectEmbedding
 
 
 class Trainer():
-    def __init__(self, list_of_method_tokens, list_of_class_id_tokens, embedding_dim, number_of_ext_collabs=2, app_net_class=ObjectEmbedding):
+    def __init__(self, list_of_method_tokens, list_of_class_id_tokens, embedding_dim, number_of_ext_collabs=3,
+                 number_of_epochs=1, app_net_class=ObjectEmbedding):
         
         self.number_of_method_tokens = len(list_of_method_tokens)
         self.number_of_class_tokens = len(list_of_class_id_tokens)
         self.max_token_id = max(list_of_class_id_tokens)
         self.embedding_size = embedding_dim
+        self.epochs = number_of_epochs
 
         self.list_of_class_id_tokens = list_of_class_id_tokens
 
@@ -48,7 +50,7 @@ class Trainer():
 
     def __get_embedding_for_method_token(self, raw_token):
         token = self.method_token_codification[raw_token]
-        if raw_token in self.method_token_embeddings.keys():
+        if token in self.method_token_embeddings.keys():
             return self.method_token_embeddings[token]
         embedding = self.token_net(torch.tensor([token]))
         self.method_token_embeddings[token] = embedding
@@ -131,6 +133,9 @@ class Trainer():
         loss.backward()
         self.optimizer.step()
 
+        self.method_token_embeddings.clear()
+        self.embedding_dictionary.clear()
+
         print(f"Loss: {loss:.3f}")
 
         return loss.item()
@@ -138,15 +143,15 @@ class Trainer():
     def train_for_multiple_traces(self, list_of_traces):
         number_of_steps = 0
         self.losses_record = []
-        for trace in list_of_traces:
-            print(f"--- Method {number_of_steps} ---")
-            self.losses_record.append(self.train_for(trace))
-
-            self.method_token_embeddings.clear()
-            self.embedding_dictionary.clear()
-            print(f"--- End of Step ---")
-            number_of_steps += 1
-
+        for epoch in range(self.epochs):
+            print(f"Epoch - {epoch}")
+            loss_for_epoch = []
+            for i, trace in enumerate(list_of_traces):
+                print(f"--- Method {i} ---")
+                loss_for_epoch.append(self.train_for(trace))
+                print(f"--- End of Step ---")
+                number_of_steps += 1
+            self.losses_record.append(sum(loss_for_epoch)/len(loss_for_epoch))
         return self.losses_record
 
     def save_models(self, dir_path):
