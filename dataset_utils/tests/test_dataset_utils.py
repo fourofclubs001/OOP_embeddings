@@ -85,7 +85,7 @@ class TestDatsetUtils(unittest.TestCase):
             ]
         ]
 
-        traces_pairs = self.dataset_utils.get_use_cases(implementations)
+        traces_pairs = self.dataset_utils.get_use_case_implementation_traces(implementations)
 
         expected_implementation_trace = self.dataset_utils.implementation_to_trace(implementations[0][:-1], 
                                                                                    implementations[0][-1])
