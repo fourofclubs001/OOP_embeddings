@@ -10,5 +10,25 @@
             ["dictionary", "set", ["second_key", "second_value"], "dictionary"]
         ], 
         "dictionary"
+    ],
+    [
+      "OperatorDictionary", "obtain",
+      ["key", "dictionary"],
+      [
+        ["String", "new", ["name"], "name"],
+        ["dictionary", "get", ["key"], "result"],
+        ["String", "new", ["text"], "text"]
+      ],
+      "result"
+    ],
+    [
+      "OperatorDictionary", "impose",
+      ["key", "value", "dictionary"],
+      [
+        ["dictionary", "set", ["key", "value"], "result"],
+        ["dictionary", "get", ["key"], "saved_value"],
+        ["String", "new", ["text"], "text"]
+      ],
+      "result"
     ]
 ]

@@ -37,5 +37,33 @@
         ["main_dictionary", "set", ["third_main_key", "third_main_value"], "main_dictionary"],
         ["main_dictionary", "get_two_values", ["first_main_key", "third_main_key"], "result_dictionary"],
         "result_dictionary"
+    ],
+    [
+        ["Dictionary", "new", [], "main_dictionary"],
+        ["OperatorDictionary", "new", [], "operator_dictionary"],
+        ["String", "new", ["first_main_key"], "first_main_key"],
+        ["String", "new", ["first_main_value"], "first_main_value"],
+        ["operator_dictionary", "impose", ["first_main_key", "first_main_value", "main_dictionary"], "main_dictionary"],
+        "main_dictionary"
+    ],
+    [
+        ["Dictionary", "new", [], "main_dictionary"],
+        ["OperatorDictionary", "new", [], "operator_dictionary"],
+        ["String", "new", ["first_main_key"], "first_main_key"],
+        ["String", "new", ["first_main_value"], "first_main_value"],
+        ["operator_dictionary", "impose", ["first_main_key", "first_main_value", "main_dictionary"], "main_dictionary"],
+        ["operator_dictionary" , "obtain", ["first_main_key", "main_dictionary"], "result"],
+        "result"
+    ],
+    [
+        ["Dictionary", "new", [], "main_dictionary"],
+        ["OperatorDictionary", "new", [], "operator_dictionary"],
+        ["String", "new", ["first_main_key"], "first_main_key"],
+        ["String", "new", ["first_main_value"], "first_main_value"],
+        ["String", "new", ["second_main_value"], "second_main_value"],
+        ["operator_dictionary", "impose", ["first_main_key", "first_main_value", "main_dictionary"], "main_dictionary"],
+        ["operator_dictionary", "impose", ["first_main_key", "second_main_value", "main_dictionary"], "main_dictionary"],
+        ["operator_dictionary", "obtain", ["first_main_key", "main_dictionary"], "result"],
+        "result"
     ]
 ]
