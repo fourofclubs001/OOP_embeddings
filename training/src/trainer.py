@@ -115,6 +115,8 @@ class Trainer():
         ax.set_ylabel("Loss")
         ax.grid()
 
+        plt.savefig('losses.png')
+
         plt.show()
 
     def train_for(self, pair_of_traces):

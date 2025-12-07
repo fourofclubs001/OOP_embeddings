@@ -15,7 +15,6 @@
       "OperatorDictionary", "obtain",
       ["key", "dictionary"],
       [
-        ["String", "new", ["name"], "name"],
         ["dictionary", "get", ["key"], "result"],
         ["String", "new", ["text"], "text"]
       ],
@@ -26,8 +25,7 @@
       ["key", "value", "dictionary"],
       [
         ["dictionary", "set", ["key", "value"], "result"],
-        ["dictionary", "get", ["key"], "saved_value"],
-        ["String", "new", ["text"], "text"]
+        ["dictionary", "get", ["key"], "saved_value"]
       ],
       "result"
     ]
