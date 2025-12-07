@@ -483,6 +483,461 @@
         ["main_dictionary", "set", ["third_main_key", "third_main_value"], "main_dictionary"],
         ["main_dictionary", "other_get_two_values", ["first_main_key", "third_main_key"], "result_dictionary"],
         "result_dictionary"
+    ],
+    [
+        ["String", "new", ["key"], "key"],
+        ["String", "new", ["value"], "value"],
+        
+        ["Dictionary", "new", [], "dict"],
+        ["dict", "set", ["key", "value"], "dict"],
+        
+        ["OperatorDictionary", "new", [], "operator"],
+        
+        ["operator", "obtain", ["key", "dict"], "res"],
+        
+        "res"
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_3", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_2", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_1", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_1", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_2", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_3", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+        
+        ["Dictionary", "new", [], "dict"],
+        
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_4", "dict"], "res"],
+
+        "res" 
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+        ["String", "new", ["val_1_"], "val_1_"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_1", "val_1_"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_1", "dict"], "res"],
+
+        "res"
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+        ["String", "new", ["val_1_"], "val_1_"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_1", "val_1_"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_1", "dict"], "res"],
+
+        "res"
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+        ["String", "new", ["val_1_"], "val_1_"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_2", "val_1_"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_2", "dict"], "res"],
+
+        "res"
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+        ["String", "new", ["val_1_"], "val_1_"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_3", "val_1_"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_3", "dict"], "res"],
+
+        "res"
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+        ["String", "new", ["val_1_"], "val_1_"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_4", "val_1_"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_4", "dict"], "res"],
+
+        "res"
+    ],
+
+    [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_2", "val_1_"], "dict"],
+
+        ["dict", "set", ["key_1", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_4"], "dict"],
+        ["dict", "set", ["key_3", "val_1"], "dict"],
+        ["dict", "set", ["key_4", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_1", "dict"], "res"],
+
+        "res"
+    ],
+
+        [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_2", "val_1_"], "dict"],
+
+        ["dict", "set", ["key_1", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_4"], "dict"],
+        ["dict", "set", ["key_3", "val_1"], "dict"],
+        ["dict", "set", ["key_4", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_2", "dict"], "res"],
+
+        "res"
+    ],
+
+        [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_2", "val_1_"], "dict"],
+
+        ["dict", "set", ["key_1", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_4"], "dict"],
+        ["dict", "set", ["key_3", "val_1"], "dict"],
+        ["dict", "set", ["key_4", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_3", "dict"], "res"],
+
+        "res"
+    ],
+
+        [
+        ["String", "new", ["key_1"], "key_1"],
+        ["String", "new", ["val_1"], "val_1"],
+
+        ["String", "new", ["key_2"], "key_2"],
+        ["String", "new", ["val_2"], "val_2"],
+        
+        ["String", "new", ["key_3"], "key_3"],
+        ["String", "new", ["val_3"], "val_3"],
+
+        ["String", "new", ["key_4"], "key_4"],
+        ["String", "new", ["val_4"], "val_4"],
+
+        ["Dictionary", "new", [], "dict"],
+
+        ["dict", "set", ["key_1", "val_1"], "dict"],
+        ["dict", "set", ["key_2", "val_2"], "dict"],
+        ["dict", "set", ["key_3", "val_3"], "dict"],
+        ["dict", "set", ["key_4", "val_4"], "dict"],
+        ["dict", "set", ["key_2", "val_1_"], "dict"],
+
+        ["dict", "set", ["key_1", "val_3"], "dict"],
+        ["dict", "set", ["key_2", "val_4"], "dict"],
+        ["dict", "set", ["key_3", "val_1"], "dict"],
+        ["dict", "set", ["key_4", "val_2"], "dict"],
+
+        ["OperatorDictionary", "new", [], "operator"],
+
+        ["operator", "obtain", ["key_4", "dict"], "res"],
+
+        "res"
     ]
 
 ]
