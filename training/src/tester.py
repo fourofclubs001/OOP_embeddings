@@ -29,7 +29,7 @@ class Tester:
         other_embeddings = {token_id: self.token_net(torch.tensor(mapper[token_id])) for
                                     token_id in list_of_tokens}
 
-        distances = {token_id: torch.nn.functional.cosine_similarity(reference_embedding, other_embedding, dim=0)
+        distances = {token_id: 1 - torch.nn.functional.cosine_similarity(reference_embedding, other_embedding, dim=0)
                      for token_id, other_embedding in other_embeddings.items()}
 
         return distances
