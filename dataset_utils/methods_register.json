@@ -12,11 +12,25 @@
         "dictionary"
     ],
     [
+        "Dictionary", "other_get_two_values",
+        ["first_key", "second_key"],
+        [
+            ["self", "get", ["first_key"], "first_value"],
+            ["self", "get", ["second_key"], "second_value"],
+            ["self", "get", ["second_key"], "second_value"],
+            ["self", "get", ["second_key"], "second_value"],
+            ["Dictionary", "new", [], "dictionary"],
+            ["dictionary", "set", ["first_key", "first_value"], "dictionary"],
+            ["self", "get", ["first_key"], "first_value"],
+            ["dictionary", "set", ["second_key", "second_value"], "dictionary"]
+        ],
+        "dictionary"
+    ],
+    [
       "OperatorDictionary", "obtain",
       ["key", "dictionary"],
       [
-        ["dictionary", "get", ["key"], "result"],
-        ["String", "new", ["text"], "text"]
+        ["dictionary", "get", ["key"], "result"]
       ],
       "result"
     ],
@@ -24,8 +38,7 @@
       "OperatorDictionary", "impose",
       ["key", "value", "dictionary"],
       [
-        ["dictionary", "set", ["key", "value"], "result"],
-        ["dictionary", "get", ["key"], "saved_value"]
+        ["dictionary", "set", ["key", "value"], "result"]
       ],
       "result"
     ]
