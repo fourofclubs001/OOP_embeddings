@@ -10,7 +10,7 @@ def train():
     environment_classes_ids = set(classes_with_ids.values())
 
     environment_method_pairs = environment.get_class_method_pairs()
-    trainer = Trainer(environment_method_pairs, environment_classes_ids, 10, 2, 100)
+    trainer = Trainer(environment_method_pairs, environment_classes_ids, 10, 3, 100)
     trainer.train_for_multiple_traces(traces)
 
     tester = Tester(trainer, ids_with_classes)
