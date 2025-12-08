@@ -1,6 +1,5 @@
 import copy
 import torch
-import numpy as np
 import matplotlib.pyplot as plt
 
 
@@ -10,6 +9,7 @@ class Tester:
         self.method_token_codification = trainer.method_token_codification.copy()
         self.token_net = copy.deepcopy(trainer.token_net)
         self.application_net = copy.deepcopy(trainer.application_net)
+        self.embedding_size = trainer.embedding_size
 
         self.class_id_to_name_mapper = class_id_to_name_mapper
 
@@ -33,6 +33,13 @@ class Tester:
                      for token_id, other_embedding in other_embeddings.items()}
 
         return distances
+
+    def get_instance_embedding_of(self, receiver_class_id):
+        receiver_embedding = self.token_net(torch.tensor(self.class_token_codification[receiver_class_id]))
+        method_embedding = self.token_net(torch.tensor(self.method_token_codification[("Class", "new")]))
+        application_embedding = self.application_net(receiver_embedding.view(1,self.embedding_size), method_embedding.view(1,self.embedding_size), torch.tensor([[]]), torch.tensor([[]]))
+        return application_embedding
+
 
     def plot_class_distances(self, reference_token, list_of_tokens):
         distance_to_OperationsDictionary = self.cosine_distance_between_class_and_list(reference_token, list_of_tokens)
