@@ -329,6 +329,20 @@ class Environment:
                     classes.append(self.get_value(name_object))
             
         return set(classes)
+
+    def get_classes_with_ids(self):
+        classes_ids = {}
+        for object_name in list(self.objects.keys()):
+
+            if "class" in self.objects[object_name]["class_methods"]:
+
+                if self.objects[object_name]["class_methods"]["class"][2] == "Class":
+                    name_object = self.objects[object_name]["class_methods"]["name"][2]
+                    object_id = self.objects[object_name]["id"]
+
+                    classes_ids[self.get_value(name_object)] = object_id
+
+        return classes_ids
     
     def get_class_method_pairs(self):
         
